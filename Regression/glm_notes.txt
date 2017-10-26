@@ -1,0 +1,24 @@
+y = 1/1+e^(ax+B) the link function
+
+glm(vs~mpg + wt, data=mtcars)
+
+Deviance: Measure of Badness 0f Fit --> Lower ther better
+
+Null Deviance:  How good/bad are the estimates of response variable using ONLY INTERCEPT or (grand mean)
+
+Residual Deciance: How better/worse are the estimates of response variable using other INDEPENDENT vars in addition to the INTERCEPT or (grand mean)
+
+DoF Null/Residual Deviance
+
+Fisher Scoring Algorithm (maximum likelihood estimation)
+
+AIC: comparing related models ~ related concept ~ Adjusted R-squared
+Penalize including inrrelevant variables.
+
+
+Hosmer-Lemeshow Goodness of Fit: (another piece of measurement of goodness)
+ - Measures difference between the model and the samples
+
+ - library(ResourceSelection)
+ - hoslem.test(mtcars$vs, fitted(model))
+ - lower p-value(than alpha) indicates significant difference between obs and model output
