@@ -12,6 +12,9 @@ sqldf('select * from timesheet')
 # selecting named columns
 sqldf('select driverId, name from drivers')
 
+# changing the column name in the output --> AS operator
+sqldf('select driverId AS ID, name AS DRIVER_NAME from drivers')
+
 # Using arithmetic operators (sum, mean, std)
 # SUM                --> SUM(column_name)
 sqldf('select sum(mileslogged) AS MILES, sum(hourslogged) AS hours from timesheet')
