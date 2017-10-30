@@ -26,5 +26,6 @@ sqldf('select sum(mileslogged) AS TOTAL_HOURS, avg(hourslogged) AS AVG_HOURS, st
 sqldf('select driverId AS DRIVER, sum(hourslogged) AS TOTAL_HOURS from timesheet GROUP BY driverId')
 
 # JOIN two tables 
-sqldf('SELECT d.driverId, d.name, t.total_hours, t.total_miles from drivers d JOIN (SELECT driverId, sum(hourslogged) AS total_hours, 
-sum(mileslogged) AS total_miles FROM timesheet GROUP BY driverId ) t ON (d.driverId = t.driverId);')
+sqldf('SELECT d.driverId, d.name, t.total_hours, t.total_miles from drivers AS d 
+      JOIN (SELECT driverId, sum(hourslogged) AS total_hours, sum(mileslogged) AS total_miles FROM timesheet GROUP BY driverId ) AS t 
+      ON (d.driverId = t.driverId);')
