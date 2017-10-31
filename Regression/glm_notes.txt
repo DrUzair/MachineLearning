@@ -18,7 +18,6 @@ Penalize including inrrelevant variables.
 
 Hosmer-Lemeshow Goodness of Fit: (another piece of measurement of goodness)
  - Measures difference between the model and the samples
-
  - library(ResourceSelection)
  - hoslem.test(mtcars$vs, fitted(model))
  - lower p-value(than alpha) indicates significant difference between obs and model output
