@@ -1,5 +1,6 @@
+# install sqldf package if already not installed
 # install.packages('sqldf')
-# library('sqldf)
+library('sqldf')
 # please change the path in following two code-lines to where you have saved drives and timesheet files
 # or create a sql_practice folder on C drive and move dervers and timesheet files there
 drivers <- read.csv('c:\\sql_practice\\drivers.csv')
