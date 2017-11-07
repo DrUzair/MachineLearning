@@ -2,7 +2,7 @@ y = 1/1+e^(ax+B) the link function
 
 glm(vs~mpg + wt, data=mtcars)
 
-Deviance: Measure of Badness 0f Fit --> Lower ther better
+Deviance: Measure of Badness 0f Fit --> the lower the better
 
 Null Deviance:  How good/bad are the estimates of response variable using ONLY INTERCEPT or (grand mean)
 
