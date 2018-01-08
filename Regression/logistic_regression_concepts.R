@@ -4,11 +4,12 @@ data$Slept <- (data$Slept - mean(data$Slept))/sd(data$Slept)
 glm(Passed~., data, family = 'binomial')
 
 # Important Transformations
-# probability   =   n/N   --> range between 0~1
+
+# probability p =   n/N   --> range between 0~1
 # odds          =   p / (1 - p)                 =   exp(mx  + b)
 # log(odds)     =   logit(p)                    =   log(p/(1-p))          =   b0 + b1*x1 + . + bk*xk --> range between -inf ~ +inf
 # exp(log(odds))=   exp(log(p/(1-p))            =   odds                  =   exp(b0 + b1*x1 + . + bk*xk)  
-# probability   =   exp(mx + b) / (1+exp(mx+b))
+# probability   =   exp(mx + b) / (1+exp(mx+b)) =   1/(1+exp(-(mx+b)))                           --> range(0 (if mx+b a large -ve), 1 ((if mx+b a large +ve))). 
 # oddsratio     =   odds1 / odds2
 # b1            =   log(odds1) - log(odds2)     =   log(odds1/odds2)      =   log(oddsratio)    --> b1 is logistic regression coef
 # exp(b1)       =   exp(log(oddsratio))         =   oddsratio        
