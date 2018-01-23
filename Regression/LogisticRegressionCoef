@@ -1,1 +1,27 @@
-https://stats.stackexchange.com/questions/6206/how-to-plot-decision-boundary-in-r-for-logistic-regression-model
+flower_data <- data.frame(read.table('flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))
+mdl <- glm(c~., data=flower_data, family=binomial )
+mdl
+
+# coef[1] --> b
+# coef[2] --> x1 coef
+# coef[3] --> x2 coef
+# c'      --> estimate of c
+
+# mdl equation coef[1] + coef[2]*x1 + coef[3]*x2 = z
+# c' = sigmoid(z)
+# sigmoid(z) >= 0.5 means c' is 1 otherwise 0 [1 / (1 + exp(-z))]
+# z >= 0 --> sigmoid(z) >= 0.5
+# coef[1] + coef[2]*x1 + coef[3]*x2 >= 0
+# x2 >= (-coef[2]/coef[3])*x1 + (-coef[1]/coef[3]) 
+
+slope <- coef(mdl)[2]/(-coef(mdl)[3])
+intercept <- coef(mdl)[1]/(-coef(mdl)[3]) 
+
+library(lattice)
+xyplot(x1 ~ x2, data = flower_data, groups = c, 
+       panel = function( ...) {
+              panel.xyplot(...)
+              panel.abline(intercept , slope)
+              panel.grid(...)
+       }
+)
