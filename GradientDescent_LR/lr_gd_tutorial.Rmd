@@ -1,0 +1,197 @@
+---
+title: "Logistic Regression using Gradient Descent Algorithm"
+author: "Uzair Ahmad"
+date: "January 25, 2018"
+output: html_document
+runtime: shiny
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+```
+# {.tabset}
+
+## Intrdoduction 
+This tutorial walks you through the steps of how to implement logistic regression with gradient descent algorithm.
+We are going to use a synthetic data sets
+```{r, echo=TRUE}
+library(lattice)
+setwd('C:\\RnD\\Dev\\gradient_descent')
+flower_data <- data.frame(read.table('flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))
+xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actual')
+```
+
+## Analytical Approach {.tabset .tabset-fade .tabset-pills}
+### Applying Logistic Regression
+Using glm function, create a logistic regression model that can classify the color of flower petals.
+```{r, echo=TRUE}
+mdl <- glm(c~., data=flower_data, family=binomial )
+pred   <- (predict(mdl, data= flower_data[c('x1', 'x2')], type = c("response") ) > 0.5) * 1
+flower_data <- cbind(flower_data, pred = pred)
+
+```
+### Predict the response
+```{r, echo=TRUE}
+pred   <- (predict(mdl, data= flower_data[c('x1', 'x2')], type = c("response") ) > 0.5) * 1
+flower_data <- cbind(flower_data, pred = pred)
+```
+### Visualizing  Decision Boundary of the Logistic Regression Classifier
+```{r, echo=TRUE}
+slope <- coef(mdl)[2]/(-coef(mdl)[3])
+intercept <- coef(mdl)[1]/(-coef(mdl)[3]) 
+
+flower_data['abs_error'] <- abs(flower_data['c'] - flower_data['pred']) 
+glm_mae <- round(mean(flower_data$abs_error) * 100, 4)
+
+xyplot(x1 ~ x2, data = flower_data, groups = pred, pch = 19, cex = 1.5, main=paste0('Predictions MAE : ', glm_mae) ,
+       #auto.key=list(x=0.05,y=0.95,text=c("Correct","Wrong")),
+       panel = function( ...) {
+         panel.xyplot(...)
+         panel.abline(intercept , slope)
+         panel.grid(...)
+       }
+)
+```
+
+
+## Gradient Descent Approach {.tabset .tabset-fade .tabset-pills}
+### Sigmoid Activation
+```{r, echo=TRUE}
+sigmoid <- function (z){  return( 1 / ( 1 + exp(-z))) }
+```
+### Calculate Gradients
+```{r calc_grads, echo=TRUE}
+calc_grads <- function(w, b, X, Y){
+  m = dim(X)[2]
+  
+  z = t(w) %*% X + b
+  A = sigmoid(z)
+  c = - 1/m * sum((Y * log(A)) + ((1 - Y) * log (1-A)))
+  A_minus_Y = A - Y
+  dw = as.matrix(1/m * (X %*% t(A_minus_Y)))
+  db = 1/m * (sum(A_minus_Y))
+  g = list(dw = dw, db = db)
+  return (list(grads = g, cost = c))
+}
+```
+### Parameter Optimization
+```{r, echo=TRUE}
+optimize <- function(w, b, X, Y, num_iterations, alpha, print_cost = False){
+  cost_list = list()
+  for (i in seq(1, num_iterations)){
+    ff_output = calc_grads(w, b, X, Y)
+    
+    dw = ff_output$grads$dw
+    db = ff_output$grads$db
+    
+    w = as.matrix(w - alpha * dw)
+    b = b - alpha * db
+    
+    cost_list[i] <- ff_output$cost
+    
+    print(paste0('cost after epoch ', i, ' is ',ff_output$cost))
+    
+  }
+  params = list(w = w, b = b)
+  grads = list(dw = dw, db = db)
+  return (list(params=params, grads=grads, cost=cost_list))
+}
+```
+### Predict Function
+```{r, echo=TRUE}
+predict.gd <- function(w, b, X){
+  m = dim(X)[2]
+  A = sigmoid(t(w) %*% X + b)
+  Y_pred <- (A > 0.5) * 1
+  return (Y_pred)
+}
+```
+
+
+### GDLR Model Wrapper Function
+```{r, echo=TRUE}
+gdlr_model <- function(X_train, Y_train, X_test, Y_test, num_iterations = 2000, alpha = 0.5, print_cost = False){
+  w   = as.matrix(rep(0, dim(X_train)[1]), nrow = dim(X_train)[1], ncol = 1)
+  b   = 0
+  
+  mdl = optimize(w, b, X_train, Y_train, num_iterations, alpha, print_cost)
+  
+  w = mdl$params$w
+  b = mdl$params$b
+  
+  Y_pred_test <- predict.gd(w, b, X_test)
+  Y_pred_train <- predict.gd(w, b, X_train)
+  
+  print(paste0("Train MAE ", mean(abs(Y_pred_train - Y_train)) * 100))
+  print(paste0("Test MAE ", mean(abs(Y_pred_test - Y_train)) * 100))
+  
+  return(mdl)
+  
+}
+```
+### End tabset
+
+### Put to test
+```{r, echo=TRUE}
+X_train <- t(as.matrix((flower_data[c('x1', 'x2')])))
+X_train <- t(as.matrix(flower_data[c('x1', 'x2')]))
+Y_train <- t(as.matrix(flower_data[c('c')]))
+X_test <- X_train
+Y_test <- Y_train
+
+print(dim(Y_train))
+gdlr_mdl <- gdlr_model (X_train, Y_train, X_test, Y_test, num_iterations = 100, alpha = 0.1, print_cost = False)
+```
+### GDLR Prediction Results
+```{r, echo=TRUE}
+gdlr_pred <- predict.gd(gdlr_mdl$params$w, gdlr_mdl$params$b, X_train)
+gdlr_mae <- round(mean(abs(flower_data$c - gdlr_pred) * 100, 4))
+flower_data <- cbind(flower_data, gdlr_pred = gdlr_pred)
+xyplot(x1 ~ x2, data = flower_data, groups = gdlr_pred, pch = 19, cex = 1.5, main=paste0('Predictions MAE : ', gdlr_mae))
+
+```
+
+## Multilayer NN {.tabset .tabset-fade .tabset-pills}
+### Parameter Initialization
+```{r, echo=TRUE}
+init_param <- function(nX, nH, nY){
+  W1 <- matrix(rnorm(nX * nH), nrow = nH, ncol = nX)
+  b1 <- matrix(rep(0, nH), nrow = nH, ncol = 1)
+  W2 <- matrix(rnorm(nX * nH), nrow = nY, ncol = nH)
+  b2 <- matrix(rep(0, nY), nrow = nY, ncol = 1)
+  param <- list( W1 = W1,
+                      b1 = b1,
+                      W2 = W2,
+                      b2 = b2)
+  return(param)
+}
+```
+### Forward Propagation
+```{r, echo=TRUE}
+forward_pass <- function(X, param){
+  W1 <- param$W1
+  b1 <- param$b1
+  W2 <- param$W2
+  b2 <- param$b2
+  
+  Z1 <- W1 %*% X + b1
+  A1 <- tanh(Z1)
+  Z2 <- W2 %*% A1 + b2
+  A2 <- sigmoid(Z2)
+  
+  output <- list(Z1 = Z1,
+                 A1 = A1,
+                 Z2 = Z2,
+                 A2 = A2)
+  
+  return (list(A2 = A2, fp_output = output))
+}
+```
+### Cost Function
+```{r, echo=TRUE}
+cost <- function(A2, Y, param){
+  m = length(Y)
+  logprobs <- (log(A2) %*% Y) + (log(1 - A2) %*% (1 -Y))
+  cost <- - 1/m * sum(logprobs)
+  return (cost)
+}
+```
