@@ -21,6 +21,22 @@ xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actua
 ```
 
 ## Analytical Approach {.tabset .tabset-fade .tabset-pills}
+Probability $p =   \frac{n}{N} 0 \ge p \le 1$     
+
+Odds          $odds(p) =   \frac{p}{(1 - p)}                 =   e^{(W^Tx  + b)}$  
+
+$log(odds)     =   logit(p)                    =   log({p}/{(1-p)})   =   W^Tx  + b  \Rightarrow  [-inf \ge log(odds) \le inf]$  
+
+$e^{(log(odds))}=   e^{log(\frac{p}{(1-p)})}            =   odds                  =   e^{(W^Tx  + b)}$    
+
+probability $p  = \frac{\frac{p}{1-p}}{1 + \frac{p}{1-p}} = \frac{odds(p)}{1+odds(p)} =  \frac{e^{(W^Tx  + b)}}{(1+e^{(W^Tx  + b)})} =   \frac{1}{(1+e^{(-(W^Tx+b)}))} \rightarrow \begin{cases} 1 & \text{if } & mx+b & \text{a large -ve},\\ 0 & \text{if } & mx+b & \text{a large +ve} \end{cases}$  
+
+$oddsratio     =   \frac{odds(1)}{odds(2)}$
+b1            =   log(odds1) - log(odds2)     =   log(odds1/odds2)      =   log(oddsratio)    --> b1 is logistic regression coef  
+exp(b1)       =   exp(log(oddsratio))         =   oddsratio          
+
+Logistic regression is in reality an ordinary regression using the logit as the response variable.
+The logit transformation allows for a linear relationship between the response variable and the coefficients:
 ### Applying Logistic Regression
 Using glm function, create a logistic regression model that can classify the color of flower petals.
 ```{r, echo=TRUE}
