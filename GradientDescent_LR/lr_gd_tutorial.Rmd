@@ -20,6 +20,7 @@ flower_data <- data.frame(read.table('flower2.csv', header = FALSE, sep = ",", c
 xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actual')
 ```
 
+
 ## Analytical Approach {.tabset .tabset-fade .tabset-pills}
 Probability $p =   \frac{n}{N} 0 \ge p \le 1$     
 
@@ -37,28 +38,29 @@ exp(b1)       =   exp(log(oddsratio))         =   oddsratio
 
 Logistic regression is in reality an ordinary regression using the logit as the response variable.
 The logit transformation allows for a linear relationship between the response variable and the coefficients:
+
 ### Applying Logistic Regression
 Using glm function, create a logistic regression model that can classify the color of flower petals.
 ```{r, echo=TRUE}
 mdl <- glm(c~., data=flower_data, family=binomial )
-pred   <- (predict(mdl, data= flower_data[c('x1', 'x2')], type = c("response") ) > 0.5) * 1
-flower_data <- cbind(flower_data, pred = pred)
-
 ```
+
 ### Predict the response
 ```{r, echo=TRUE}
-pred   <- (predict(mdl, data= flower_data[c('x1', 'x2')], type = c("response") ) > 0.5) * 1
-flower_data <- cbind(flower_data, pred = pred)
+glm_pred   <- (predict(mdl, data= flower_data[c('x1', 'x2')], type = c("response") ) > 0.5) * 1
+flower_data <- cbind(flower_data, glm_pred = glm_pred)
+head(flower_data)
 ```
+
 ### Visualizing  Decision Boundary of the Logistic Regression Classifier
 ```{r, echo=TRUE}
 slope <- coef(mdl)[2]/(-coef(mdl)[3])
 intercept <- coef(mdl)[1]/(-coef(mdl)[3]) 
+abs_error <- abs(flower_data$c - flower_data$glm_pred)
+print(abs_error)
+glm_mae <- round(mean(abs_error) * 100, 4)
 
-flower_data['abs_error'] <- abs(flower_data['c'] - flower_data['pred']) 
-glm_mae <- round(mean(flower_data$abs_error) * 100, 4)
-
-xyplot(x1 ~ x2, data = flower_data, groups = pred, pch = 19, cex = 1.5, main=paste0('Predictions MAE : ', glm_mae) ,
+xyplot(x1 ~ x2, data = flower_data, groups = glm_pred, pch = 19, cex = 1.5, main=paste0('Predictions MAE : ', glm_mae) ,
        #auto.key=list(x=0.05,y=0.95,text=c("Correct","Wrong")),
        panel = function( ...) {
          panel.xyplot(...)
@@ -67,6 +69,9 @@ xyplot(x1 ~ x2, data = flower_data, groups = pred, pch = 19, cex = 1.5, main=pas
        }
 )
 ```
+
+
+
 
 
 ## Gradient Descent Approach {.tabset .tabset-fade .tabset-pills}
@@ -144,13 +149,14 @@ gdlr_model <- function(X_train, Y_train, X_test, Y_test, num_iterations = 2000, 
   
 }
 ```
-### End tabset
 
 ### Put to test
 ```{r, echo=TRUE}
-X_train <- t(as.matrix((flower_data[c('x1', 'x2')])))
-X_train <- t(as.matrix(flower_data[c('x1', 'x2')]))
+X_train <- as.matrix(flower_data[c('x1', 'x2')])
+X_train <- scale(X_train)
+X_train <- t(X_train)
 Y_train <- t(as.matrix(flower_data[c('c')]))
+
 X_test <- X_train
 Y_test <- Y_train
 
@@ -160,24 +166,32 @@ gdlr_mdl <- gdlr_model (X_train, Y_train, X_test, Y_test, num_iterations = 100, 
 ### GDLR Prediction Results
 ```{r, echo=TRUE}
 gdlr_pred <- predict.gd(gdlr_mdl$params$w, gdlr_mdl$params$b, X_train)
-gdlr_mae <- round(mean(abs(flower_data$c - gdlr_pred) * 100, 4))
+gdlr_pred <- t(gdlr_pred)
 flower_data <- cbind(flower_data, gdlr_pred = gdlr_pred)
+abs_error_gdlr <- abs(flower_data$c - flower_data$gdlr_pred)
+gdlr_mae <- round(mean(abs_error_gdlr) * 100, 4)
 xyplot(x1 ~ x2, data = flower_data, groups = gdlr_pred, pch = 19, cex = 1.5, main=paste0('Predictions MAE : ', gdlr_mae))
-
 ```
 
-## Multilayer NN {.tabset .tabset-fade .tabset-pills}
+
+## Gradient Descent with One Hidden Layer {.tabset .tabset-fade .tabset-pills}
 ### Parameter Initialization
+Zero weights and symmetry:
+Random weights and breaking symmetry:
+Xavier initialization $W^{[l]*\sqrt\frac{1}{l-1}}$
+[He Initialization](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7410480): $W^{[l]*\sqrt\frac{2}{l-1}}$
+
 ```{r, echo=TRUE}
 init_param <- function(nX, nH, nY){
-  W1 <- matrix(rnorm(nX * nH), nrow = nH, ncol = nX)
-  b1 <- matrix(rep(0, nH), nrow = nH, ncol = 1)
-  W2 <- matrix(rnorm(nX * nH), nrow = nY, ncol = nH)
-  b2 <- matrix(rep(0, nY), nrow = nY, ncol = 1)
+  W1 <- matrix(runif(nX * nH, min = -1, max = 1) * 0.01, nrow = nH, ncol = nX)
+  b1 <- c(rep(0, nH))
+  W2 <- matrix(runif(nY * nH, min = -1, max = 1) * 0.01, nrow = nY, ncol = nH)
+  b2 <- c(rep(0, nY))
+  
   param <- list( W1 = W1,
-                      b1 = b1,
-                      W2 = W2,
-                      b2 = b2)
+                 b1 = b1,
+                 W2 = W2,
+                 b2 = b2)
   return(param)
 }
 ```
@@ -189,7 +203,8 @@ forward_pass <- function(X, param){
   W2 <- param$W2
   b2 <- param$b2
   
-  Z1 <- W1 %*% X + b1
+  Z1 <- W1 %*% X
+  Z1 <- Z1 + b1
   A1 <- tanh(Z1)
   Z2 <- W2 %*% A1 + b2
   A2 <- sigmoid(Z2)
@@ -199,15 +214,125 @@ forward_pass <- function(X, param){
                  Z2 = Z2,
                  A2 = A2)
   
-  return (list(A2 = A2, fp_output = output))
-}
+  return (output)
+} 
 ```
 ### Cost Function
 ```{r, echo=TRUE}
-cost <- function(A2, Y, param){
+compute_cost <- function(A2, Y, param){
   m = length(Y)
-  logprobs <- (log(A2) %*% Y) + (log(1 - A2) %*% (1 -Y))
-  cost <- - 1/m * sum(logprobs)
+  logprobs <- (log(A2) * Y) + (log(1 - A2) * (1 -Y))
+  cost <- (- 1/m) * sum(logprobs)
   return (cost)
 }
+
+```
+### Backward Propagation
+```{r, echo=TRUE}
+backward_pass <- function(param, cache, X, Y){
+  m <- dim(X)[2] # number of examples in X
+  
+  W1 <- param$W1
+  W2 <- param$W2
+  A1 <- cache$A1
+  A2 <- cache$A2
+  
+  dZ2 <- A2 - Y
+  
+  dW2 <- (1/m) * (dZ2 %*% t(A1)) 
+  db2 <- matrix((1/m) * rowSums(dZ2))
+  
+  dZ1 <- (t(W2) %*% dZ2) * (1 - A1^2)
+  
+  dW1 <- (1/m) * (dZ1 %*% t(X))
+  db1 <- matrix((1/m) * (rowSums(dZ1)))
+  
+  grads <- list( dW1 = dW1,
+                 db1 = db1,
+                 dW2 = dW2,
+                 db2 = db2)
+  
+  return (grads)
+}
+```
+### Update Parameters
+```{r, echo=TRUE}
+update_param <- function(param, grads, learning_rate = 1.2){
+  W1 <- param$W1
+  b1 <- param$b1
+  W2 <- param$W2
+  b2 <- param$b2
+  
+  dW1 <- grads$dW1
+  db1 <- grads$db1
+  dW2 <- grads$dW2
+  db2 <- grads$db2
+  
+  W1 <- W1 - (learning_rate * dW1)
+  b1 <- as.vector(b1 - (learning_rate * db1))
+  W2 <- W2 - (learning_rate * dW2)
+  b2 <- as.vector(b2 - (learning_rate * db2))
+  
+  param <- list(W1 = W1,
+                b1 = b1,
+                W2 = W2,
+                b2 = b2)
+  
+  return(param)
+}
+```
+### Model Wrapper
+```{r, echo=TRUE}
+mlp_train <- function(X, Y, n_h, num_iter = 100, learning_rate = 1.2, print_cost=FALSE){
+  n_x <- dim(X)[1]
+  n_y <- dim(Y)[1]
+  
+  
+  param <- init_param(n_x, n_h, n_y)
+  
+  W1 <- param$W1
+  b1 <- param$b1
+  W2 <- param$W2
+  b2 <- param$b2
+  
+  costs = list()
+  for (i in seq(1, num_iter)){
+    
+    fp_output = forward_pass(X, param)
+    
+    cost <- compute_cost(fp_output$A2, Y, param)
+    
+    costs[i] <- cost
+    
+    grads <- backward_pass(param, fp_output, X, Y)
+    
+    param <- update_param(param, grads, learning_rate = 1.2)
+    
+    if( i %% 50 == 0)
+      print(paste0('cost after iteration ', i, ' is ' , cost))
+  }
+  return(list(param = param, costs = costs))
+}
+```
+### Put to test
+```{r, echo=TRUE}
+
+X_train <- as.matrix(flower_data[c('x1', 'x2')])
+X_train <- scale(X_train)
+X_train <- t(X_train)
+Y_train <- t(as.matrix(flower_data[c('c')]))
+
+train_output <- mlp_train (X_train, Y_train, 8, learning_rate = 1.2, num_iter = 1000)
+plot(x = seq(1, length(train_output$costs)) , y = train_output$costs, ylab = 'cost', xlab = 'iteration #', main = 'learning output')
+
+param <- train_output$param
+
+nl_pred <- (forward_pass(X_train, param)$A2 > 0.5) * 1
+nl_pred <- t(nl_pred)
+
+flower_data <- cbind(flower_data, nl_pred = nl_pred)
+abs_error_nlpred <- abs(flower_data$c - flower_data$nl_pred)
+nl_mae <- round(mean(abs_error_nlpred) * 100, 4)
+xyplot(x1 ~ x2, data = flower_data, groups = nl_pred, pch = 19, cex = 1.5, main=paste0('Predictions MAE (NL): ', nl_mae))
+
 ```
