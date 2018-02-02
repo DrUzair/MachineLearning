@@ -1,5 +1,5 @@
 ---
-title: "Logistic Regression using Gradient Descent Algorithm"
+title: "Understanding Gradient Descent Algorithm"
 author: "Uzair Ahmad"
 date: "January 25, 2018"
 output: html_document
@@ -15,8 +15,7 @@ This tutorial walks you through the steps of how to implement logistic regressio
 We are going to use a synthetic data sets
 ```{r, echo=TRUE}
 library(lattice)
-setwd('C:\\RnD\\Dev\\gradient_descent')
-flower_data <- data.frame(read.table('flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))
+flower_data <- data.frame(read.table('..\Datasets\flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))
 xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actual')
 ```
 
