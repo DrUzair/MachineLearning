@@ -15,7 +15,7 @@ This tutorial walks you through the steps of how to implement logistic regressio
 We are going to use a synthetic data sets
 ```{r, echo=TRUE}
 library(lattice)
-flower_data <- data.frame(read.table('..\Datasets\flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))
+flower_data <- data.frame(read.table('./data/flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))
 xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actual')
 ```
 
@@ -53,8 +53,8 @@ head(flower_data)
 
 ### Visualizing  Decision Boundary of the Logistic Regression Classifier
 ```{r, echo=TRUE}
-slope <- coef(mdl)[2]/(-coef(mdl)[3])
-intercept <- coef(mdl)[1]/(-coef(mdl)[3]) 
+intercept <- coef(mdl)[2]/(-coef(mdl)[3])
+slope <- coef(mdl)[1]/(-coef(mdl)[3]) 
 abs_error <- abs(flower_data$c - flower_data$glm_pred)
 print(abs_error)
 glm_mae <- round(mean(abs_error) * 100, 4)
@@ -282,7 +282,7 @@ update_param <- function(param, grads, learning_rate = 1.2){
 ```
 ### Model Wrapper
 ```{r, echo=TRUE}
-mlp_train <- function(X, Y, n_h, num_iter = 100, learning_rate = 1.2, print_cost=FALSE){
+mlp_train <- function(X, Y, n_h, num_iter = 1000, learning_rate = 1.2, print_cost=FALSE){
   n_x <- dim(X)[1]
   n_y <- dim(Y)[1]
   
@@ -314,24 +314,49 @@ mlp_train <- function(X, Y, n_h, num_iter = 100, learning_rate = 1.2, print_cost
 }
 ```
 ### Put to test
-```{r, echo=TRUE}
-
+```{r, echo=FALSE}
 X_train <- as.matrix(flower_data[c('x1', 'x2')])
 X_train <- scale(X_train)
 X_train <- t(X_train)
 Y_train <- t(as.matrix(flower_data[c('c')]))
+```
+```{r, echo=FALSE}
+sliderInput("learning_rate", "Learning Rate:", min = 1, max = 2, value = 1.2)
+sliderInput("nH", "Hidden Layer Size:", min = 1, max = 20, value = 4)
+sliderInput("num_iter", "Iterations:", min = 1000, max = 10000, value = 2000)
+costs <- list()
+renderPlot({
+  learning_rate <- input$learning_rate
+  nH <- input$nH
+  num_iter <- input$num_iter
+  train_output <- mlp_train (X_train, Y_train, nH, num_iter, learning_rate)
+    
+  param <- train_output$param
 
-train_output <- mlp_train (X_train, Y_train, 8, learning_rate = 1.2, num_iter = 1000)
-plot(x = seq(1, length(train_output$costs)) , y = train_output$costs, ylab = 'cost', xlab = 'iteration #', main = 'learning output')
+  nl_pred <- (forward_pass(X_train, param)$A2 > 0.5) * 1
+  nl_pred <- t(nl_pred)
+  costs <- train_output$costs
+  flower_data <- cbind(flower_data, nl_pred = nl_pred)
+  
+  
+  plot(x = seq(1, length(costs)) , 
+       y = costs, 
+       ylab = 'cost ', 
+       xlab = 'iteration #', 
+       main = paste0('learning rate ', learning_rate,
+                     ', iterations ', num_iter) )
+  
+})
+renderPlot({
+  abs_error_nlpred <- abs(flower_data$c - flower_data$nl_pred)
+  nl_mae <- round(mean(abs_error_nlpred) * 100, 4)
 
-param <- train_output$param
+  xyplot(x1 ~ x2, 
+         data = flower_data, 
+         groups = nl_pred, 
+         pch = 19, 
+         cex = 1.5, 
+         main=paste0('Predictions MAE (NL): ', nl_mae))
 
-nl_pred <- (forward_pass(X_train, param)$A2 > 0.5) * 1
-nl_pred <- t(nl_pred)
-
-flower_data <- cbind(flower_data, nl_pred = nl_pred)
-abs_error_nlpred <- abs(flower_data$c - flower_data$nl_pred)
-nl_mae <- round(mean(abs_error_nlpred) * 100, 4)
-xyplot(x1 ~ x2, data = flower_data, groups = nl_pred, pch = 19, cex = 1.5, main=paste0('Predictions MAE (NL): ', nl_mae))
-
+})
 ```
