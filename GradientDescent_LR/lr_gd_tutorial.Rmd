@@ -17,6 +17,45 @@ We are going to use a synthetic data sets
 library(lattice)
 flower_data <- data.frame(read.table('./data/flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))
 xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actual')
+
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+        selectInput("dataset_name", "Dataset:",
+              c("Flower" = "flower2.csv", "Eyeglass" = "eyeglass.csv", "Eyeball" = "eyeball.csv"),
+              selected = 1),
+    sliderInput("learning_rate", "Learning Rate:", min = 1, max = 2, value = 1.2)
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Dataset", plotOutput("distPlot"))
+        #, 
+        #tabPanel("Model Predictions", plotOutput("distPlot")), 
+        #tabPanel("Cost Function", plotOutput("distPlot"))
+      )
+    )
+  )
+)
+
+server <- function(input, output){
+  output$distPlot <- renderPlot({
+    dataset_name <- paste0("./data/", input$dataset_name)
+    print(dataset_name)
+    flower_data <- data.frame(read.table
+                                (dataset_name, 
+                                         header = FALSE, 
+                                         sep = ",", 
+                                         col.names = c('x1', 'x2', 'c')
+                                )
+                              )
+    X_train <- as.matrix(flower_data[c('x1', 'x2')])
+    X_train <- scale(X_train)
+    X_train <- t(X_train)
+    Y_train <- t(as.matrix(flower_data[c('c')]))
+    xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actual')
+  })
+}
+shinyApp(ui = ui, server = server)
 ```
 
 
@@ -40,7 +79,7 @@ The logit transformation allows for a linear relationship between the response v
 
 ### Applying Logistic Regression
 Using glm function, create a logistic regression model that can classify the color of flower petals.
-```{r, echo=TRUE}
+```{r, echo=TRUE, dependson = "flower_data"}
 mdl <- glm(c~., data=flower_data, family=binomial )
 ```
 
@@ -254,7 +293,7 @@ backward_pass <- function(param, cache, X, Y){
   return (grads)
 }
 ```
-### Update Parameters
+### Tuning Parameters
 ```{r, echo=TRUE}
 update_param <- function(param, grads, learning_rate = 1.2){
   W1 <- param$W1
@@ -313,50 +352,121 @@ mlp_train <- function(X, Y, n_h, num_iter = 1000, learning_rate = 1.2, print_cos
   return(list(param = param, costs = costs))
 }
 ```
-### Put to test
+### Tuning Hyperparameters
+Gradient Descent algorithm will only optimize the network parameters (i.e. weights and biases) within a given training scenario. It cannot learn optimal choices for the **hyperparameters** that define the training scenario. 
+There are several hyperparamters that a network designer must consider i.e. number of hidden layers, neurons per layer, activation functions, number of iterations and learning rate.
+Try this interactive neural network interface to experiment and learn the effect of hyperparameters.
+Depending on your choices in the left panel, you can see the resulting predictions and cost function outputs in the main panel.
 ```{r, echo=FALSE}
-X_train <- as.matrix(flower_data[c('x1', 'x2')])
-X_train <- scale(X_train)
-X_train <- t(X_train)
-Y_train <- t(as.matrix(flower_data[c('c')]))
-```
-```{r, echo=FALSE}
-sliderInput("learning_rate", "Learning Rate:", min = 1, max = 2, value = 1.2)
-sliderInput("nH", "Hidden Layer Size:", min = 1, max = 20, value = 4)
-sliderInput("num_iter", "Iterations:", min = 1000, max = 10000, value = 2000)
-costs <- list()
-renderPlot({
-  learning_rate <- input$learning_rate
-  nH <- input$nH
-  num_iter <- input$num_iter
-  train_output <- mlp_train (X_train, Y_train, nH, num_iter, learning_rate)
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+        selectInput("dataset_name", "Dataset:",
+                    c("Flower" = "flower2.csv", "Eyeglass" = "eyeglass.csv", "Eyeball" = "eyeball.csv"),
+                    selected = 1),
+        sliderInput("learning_rate", "Learning Rate:", min = 1, max = 2, value = 1.2),
+        sliderInput("num_hidden", "Hidden Layer Neurons:", min = 1, max = 10, value = 2),
+        sliderInput("num_iter", "Iterations:", min = 100, max = 5000, value = 1000)
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Dataset", plotOutput("dataPlot")),
+        tabPanel("Model Predictions", plotOutput("predplot")),
+        tabPanel("Cost Function", plotOutput("costplot"))
+      )
+    )
+  )
+)
+
+server <- function(input, output){
+  
+  
+  print('hello world')
+  output$dataPlot <- renderPlot({
+    dataset_name <- paste0("./data/", input$dataset_name)
+    print(dataset_name)
+    flower_data <- data.frame(read.table
+                                (dataset_name, 
+                                         header = FALSE, 
+                                         sep = ",", 
+                                         col.names = c('x1', 'x2', 'c')
+                                )
+                              )
     
-  param <- train_output$param
-
-  nl_pred <- (forward_pass(X_train, param)$A2 > 0.5) * 1
-  nl_pred <- t(nl_pred)
-  costs <- train_output$costs
-  flower_data <- cbind(flower_data, nl_pred = nl_pred)
+    
   
+    xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actual')
+  })
+  output$predplot <- renderPlot({
+    
+    learning_rate <- input$learning_rate
+    nH <- input$num_hidden
+    num_iter <- input$num_iter
+    
+    dataset_name <- paste0("./data/", input$dataset_name)
+    print(dataset_name)
+    flower_data <- data.frame(read.table
+                                (dataset_name, 
+                                         header = FALSE, 
+                                         sep = ",", 
+                                         col.names = c('x1', 'x2', 'c')
+                                )
+                              )
+    X_train <- as.matrix(flower_data[c('x1', 'x2')])
+    X_train <- scale(X_train)
+    X_train <- t(X_train)
+    Y_train <- t(as.matrix(flower_data[c('c')]))
   
-  plot(x = seq(1, length(costs)) , 
-       y = costs, 
-       ylab = 'cost ', 
-       xlab = 'iteration #', 
-       main = paste0('learning rate ', learning_rate,
-                     ', iterations ', num_iter) )
+    train_output <- mlp_train (X_train, Y_train, nH, num_iter, learning_rate)
+    
+    param <- train_output$param
+    
+    nl_pred <- (forward_pass(X_train, param)$A2 > 0.5) * 1
+    nl_pred <- t(nl_pred)
+    abs_error_nlpred <- abs(flower_data$c - nl_pred)
+    nl_mae <- round(mean(abs_error_nlpred) * 100, 4)
   
-})
-renderPlot({
-  abs_error_nlpred <- abs(flower_data$c - flower_data$nl_pred)
-  nl_mae <- round(mean(abs_error_nlpred) * 100, 4)
+    xyplot(x1 ~ x2, 
+           data = flower_data, 
+           groups = nl_pred, 
+           pch = 19, 
+           cex = 1.5, 
+           main=paste0('Predictions MAE: ', nl_mae))
+  })
+  output$costplot <- renderPlot({
+    
+    learning_rate <- input$learning_rate
+    nH <- input$num_hidden
+    num_iter <- input$num_iter
+  
+    
+    dataset_name <- paste0("./data/", input$dataset_name)
+    print(dataset_name)
+    flower_data <- data.frame(read.table
+                                (dataset_name, 
+                                         header = FALSE, 
+                                         sep = ",", 
+                                         col.names = c('x1', 'x2', 'c')
+                                )
+                              )
+    
+    X_train <- as.matrix(flower_data[c('x1', 'x2')])
+    X_train <- scale(X_train)
+    X_train <- t(X_train)
+    Y_train <- t(as.matrix(flower_data[c('c')]))
+    
+    train_output <- mlp_train (X_train, Y_train, nH, num_iter, learning_rate)
+    
+    costs <- train_output$costs
+    plot(x = seq(1, length(costs)) , 
+         y = costs, 
+         ylab = 'cost ', 
+         xlab = 'iteration #', 
+         main = paste0('learning rate ', learning_rate,
+                       ', iterations ', num_iter) )
+    })
+}
 
-  xyplot(x1 ~ x2, 
-         data = flower_data, 
-         groups = nl_pred, 
-         pch = 19, 
-         cex = 1.5, 
-         main=paste0('Predictions MAE (NL): ', nl_mae))
-
-})
+shinyApp(ui = ui, server = server)
 ```
+
