@@ -10,9 +10,15 @@
 #### Principle Component Analysis
 ## Supervised Learning
 ### Linear Regression
+Continuous output (e.g. price)
 ### Classification
+#### Binary
+#### Multiclass
+
 #### Logistic Regression
 ### Evaluating the Model Performance
+1. Confusion Matrix
+2. Baseline Model
 ### Gradient Descent Algorithm
 
 ## Semi-supervised Learning
