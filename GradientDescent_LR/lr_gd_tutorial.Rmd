@@ -134,11 +134,26 @@ calc_grads <- function(w, b, X, Y){
 ```
 ### Visualize Loss Function
 ```{r, echo=TRUE}
-sigmoid <- function (z){  return( 1 / ( 1 + exp(-z))) }calc_grads <- function(w, b, X, Y){  m = dim(X)[2]    z = t(w) %*% X + b  A = sigmoid(z)  c = - 1/m * sum((Y * log(A)) + ((1 - Y) * log (1-A)))  A_minus_Y = A - Y  dw = as.matrix(1/m * (X %*% t(A_minus_Y)))  db = 1/m * (sum(A_minus_Y))  g = list(dw = dw, db = db)  return (list(grads = g, cost = c))}
-setwd('C:\\RnD\\Dev\\gradient_descent')flower_data <- data.frame(read.table('flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))xyplot(x1 ~ x2, data = flower_data, groups = c, pch = 19, cex = 1.5, main='Actual')X_train <- as.matrix(flower_data[c('x1', 'x2')])X_train <- scale(X_train)X_train <- t(X_train)Y_train <- t(as.matrix(flower_data[c('c')]))
+setwd('C:\\RnD\\Dev\\gradient_descent')
+flower_data <- data.frame(read.table('flower2.csv', header = FALSE, sep = ",", col.names = c('x1', 'x2', 'c')))
 
-library(rgl)w_b_cost <- setNames(data.frame(matrix(ncol = 3, nrow = 0)), c("w", "b", "cost"))w_list <- seq(from = -1, to = 1, by = 0.1)b_list <- seq(from = -1, to = 1, by = .1)for(i in w_list){  w   = as.matrix(rep(i, dim(X_train)[1]), nrow = dim(X_train)[1], ncol = 1)  for(j in b_list){    b   = j    cost <- calc_grads(w, b, X_train, Y_train)$cost    print(cost)    w_b_cost <- rbind(w_b_cost, data.frame('w'= w, 'b'= b, 'cost'= cost))  }}plot3d(w_b_cost$w, w_b_cost$b, w_b_cost$cost,        main = 'Cost Function', xlab='Weight', ylab='Bias' ,zlab='Cost',       type = "p", col = rainbow(7))
+X_train <- as.matrix(flower_data[c('x1', 'x2')])
+X_train <- scale(X_train)X_train <- t(X_train)
+Y_train <- t(as.matrix(flower_data[c('c')]))
 
+library(rgl)
+w_b_cost <- setNames(data.frame(matrix(ncol = 3, nrow = 0)), c("w", "b", "cost"))
+w_list <- seq(from = -1, to = 1, by = 0.1)
+b_list <- seq(from = -1, to = 1, by = .1)
+for(i in w_list){  
+  w   = as.matrix(rep(i, dim(X_train)[1]), nrow = dim(X_train)[1], ncol = 1)  
+  for(j in b_list){    
+    b   = j    
+    cost <- calc_grads(w, b, X_train, Y_train)$cost    print(cost)    
+    w_b_cost <- rbind(w_b_cost, data.frame('w'= w, 'b'= b, 'cost'= cost))  
+  }
+}
+plot3d(w_b_cost$w, w_b_cost$b, w_b_cost$cost,        main = 'Cost Function', xlab='Weight', ylab='Bias' ,zlab='Cost',       type = "p", col = rainbow(7))
 ```
 ### Parameter Optimization
 ```{r, echo=TRUE}
