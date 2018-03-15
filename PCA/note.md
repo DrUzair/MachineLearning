@@ -14,4 +14,15 @@ iris.pca$x         # Transformed data
 plot(iris.pca, type = "l")
 ```
 - What is the effect of normalizing (centering and scaling) on the PCA results.?
+```r
+iris.pca <- prcomp(iris, scale = TRUE, center= TRUE)
+plot(iris.pca, type = "l")
+```
 - Transform the dataset using calculated PCAs. Plot the original dataset and transformed one. What do you observe.?
+```r
+iris.pca$x
+# or manually
+x_iris = as.matrix(iris)%*%pc_iris_svd$rotation # manual transformation
+boxplot(x_iris)
+boxplot(iris)
+```
