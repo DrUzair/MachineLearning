@@ -53,7 +53,7 @@ data(iris)
 	# [2,] -5.572482 1.9718259856 0.2445922505 0.0975528883
 	# [3,] -5.446977 2.0952063609 0.0150292625 0.0180133308
 	# [4,] -5.436459 1.8703815096 0.0205048805 -0.0784915014
-	as.matrix(iris)%*%pc_iris_svd$rotation # manual transformation --> equal to line 50
+	x = as.matrix(iris)%*%pc_iris_svd$rotation # manual transformation --> equal to line 50
 	# manual tranformation
 	# PC1 PC2 PC3 PC4
 	# [1,] -5.912747 2.3020332166 0.0074015356 0.0030877062
