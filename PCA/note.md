@@ -29,3 +29,4 @@ x_iris = as.matrix(iris)%*%iris.pca.normdata$rotation # manual transformation
 boxplot(x_iris, main='Norm Data Transformation')
 boxplot(iris, main='Original Data')
 ```
+
