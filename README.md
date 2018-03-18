@@ -19,8 +19,11 @@ Continuous output (e.g. price)
 
 #### Logistic Regression
 ### Evaluating the Model Performance
-1. Confusion Matrix
-2. Baseline Model
+#### Measures of performance
+Confusion Matrix
+Accuracy, Precision, Recall, F1
+#### Optimizing and Satisficing measures
+Baseline Model
 ### Gradient Descent Algorithm
 
 ## Semi-supervised Learning
