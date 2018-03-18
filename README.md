@@ -1,3 +1,5 @@
+# Problem Framing
+### Bias, Variance and Optimal Bayes Error
 # Statistical Analysis
 ### Hypothesis Testing
 ### Analysis of Variance
