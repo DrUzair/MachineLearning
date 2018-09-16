@@ -125,8 +125,36 @@ t.test(mpg.auto, mpg.manual)
 #Question 6
 High.protein<- c(134,146,104,119,124,161,107,83,113,129,97,123)
 Low.protein<- c(70,118,101,85,107,132,94)
-t.test(High.protein,Low.protein)
+# Assuming equal variances
 t.test(High.protein,Low.protein,var.equal=TRUE)
+# OUTPUTS
+# Two Sample t-test
+# data:  High.protein and Low.protein
+# t = 1.8914, df = 17, p-value = 0.07573
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+# -2.193679 40.193679
+# sample estimates:
+# mean of x mean of y 
+#      120       101 
+# INTERPRETATION
+# at 95% confidence level, there is NO significant difference (p-value = 0.07573) between the two means. 
+# Since p-value is larger than 0.05 (95% conf.level), we cannot reject H0 (H0 says both means are equal)
+# The maximum difference of means can be as low as -2.193679 and as high as 40.193679; the t-statistic 1.8914 falls 
+# within the confidence interval -2.193679 40.193679
+
+# WHAT IF Variances are not equal:
+t.test(High.protein,Low.protein)
+# OUTPUTS
+# Welch Two Sample t-test
+# data:  High.protein and Low.protein
+# t = 1.9107, df = 13.082, p-value = 0.07821
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+# -2.469073 40.469073
+# sample estimates:
+# mean of x mean of y 
+#      120       101 
 
 #Question 7
 install.packages('MASS')
