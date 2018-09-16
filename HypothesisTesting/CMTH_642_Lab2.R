@@ -106,6 +106,21 @@ mpg.auto
 mpg.manual = mtcars[!automatic,]$mpg 
 mpg.manual
 t.test(mpg.auto, mpg.manual)
+#     Welch Two Sample t-test
+# data:  mpg.auto and mpg.manual
+# t = -3.7671, df = 18.332, p-value = 0.001374
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+# -11.280194  -3.209684
+# sample estimates:
+# mean of x mean of y 
+# 17.14737  24.39231 
+# INTERPRETATION
+#  Welch’s t-test is a t-test with unequal variances.
+#  at 95% confidence level, there is a significant difference (p-value = 0.001374) of the two means. 
+#  Since p-value is smaller than 0.05 (95% conf.level), we should reject H0 (H0 says both means are equal)
+#  The difference of means can be as low as -11.280194 and as high as -3.209684; the t-statistic -3.7671 falls 
+#  within the confidence interval -11.280194  -3.209684
 
 #Question 6
 High.protein<- c(134,146,104,119,124,161,107,83,113,129,97,123)
