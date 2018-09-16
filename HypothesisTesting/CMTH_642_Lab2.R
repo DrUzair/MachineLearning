@@ -105,6 +105,8 @@ mpg.auto = mtcars[automatic,]$mpg
 mpg.auto 
 mpg.manual = mtcars[!automatic,]$mpg 
 mpg.manual
+# see the difference first hand
+boxplot(mpg.auto, mpg.manual)
 t.test(mpg.auto, mpg.manual)
 #     Welch Two Sample t-test
 # data:  mpg.auto and mpg.manual
@@ -116,7 +118,7 @@ t.test(mpg.auto, mpg.manual)
 # mean of x mean of y 
 # 17.14737  24.39231 
 # INTERPRETATION
-#  Welch’s t-test is a t-test with unequal variances.
+#  Welch’s t-test is a t-test with unequal variances. [heteroskedastic may be introduced at this point]
 #  at 95% confidence level, there is a significant difference (p-value = 0.001374) of the two means. 
 #  Since p-value is smaller than 0.05 (95% conf.level), we should reject H0 (H0 says both means are equal)
 #  The difference of means can be as low as -11.280194 and as high as -3.209684; the t-statistic -3.7671 falls 
@@ -125,7 +127,8 @@ t.test(mpg.auto, mpg.manual)
 #Question 6
 High.protein<- c(134,146,104,119,124,161,107,83,113,129,97,123)
 Low.protein<- c(70,118,101,85,107,132,94)
-# Assuming equal variances
+boxplot(High.protein,Low.protein)
+# Assuming equal variances [homoscedasticity may be introduced at this point)
 t.test(High.protein,Low.protein,var.equal=TRUE)
 # OUTPUTS
 # Two Sample t-test
@@ -156,6 +159,8 @@ t.test(High.protein,Low.protein)
 # mean of x mean of y 
 #      120       101 
 
+# As can be seend above, Usually, the results of the classical t-test and the Welch t-test are very similar 
+# unless both the group sizes and the standard deviations are very different.
 #Question 7
 install.packages('MASS')
 library(MASS)
@@ -167,3 +172,6 @@ pvalue <- ttest$p.value
 #Question 8
 s <- c(25, 32, 18, 20)
 chisq.test(s)
+
+# Interesting 
+# http://www.sthda.com/english/wiki/unpaired-two-samples-t-test-in-r
