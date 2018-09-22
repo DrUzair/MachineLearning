@@ -15,9 +15,15 @@ TukeyHSD(model, ordered = TRUE)
 attach(mtcars)
 cyl <- factor(cyl)
 plotmeans(mpg~cyl,xlab="Number of Cylinders", ylab="Miles Per Gallon", main="Mean Plot\nwith 95% CI")
-aov(mpg~cyl)
+plotmeans(mpg~factor(am),xlab="AM", ylab="Miles Per Gallon", main="Mean Plot\nwith 95% CI")
+
+summary(aov(mpg~cyl))
+boxplot(mpg ~ cyl + factor(am))
+summary(model <-  aov(mpg~cyl) )
+summary(model <-  aov(mpg~factor(am)) )
 summary(model <-  aov(mpg~cyl+factor(am)) )
 summary(model <-  aov(mpg~cyl*factor(am)) )
+
 detach()
 
 ## area~region
