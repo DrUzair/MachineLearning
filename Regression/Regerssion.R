@@ -8,6 +8,7 @@ library(ggplot2)
 data(galton)
 head(galton)
 plot(galton$parent, galton$child)
+plot(jitter(galton$parent), jitter(galton$child))
 
 mChild <- mean(galton$child)
 mParent <- mean(galton$parent)
@@ -34,7 +35,8 @@ galton$parentX <- scale(galton$parent)
 head(galton)
 plot(galton$parentX, galton$childX)
 fitx <- lm(galton$childX~galton$parentX)
-fitx$coefficients[2] # == cor(galton$childX, galton$parentX)
+fitx$coefficients[2] 
+cor(galton$childX, galton$parentX)
 abline(fitx, col='pink')
 
 # The prediction
