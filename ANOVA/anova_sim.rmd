@@ -1,0 +1,27 @@
+```R
+set.seed(0)
+A <- round(rnorm(10, mean=10, sd=1))
+B <- round(rnorm(10, mean=10, sd=3))
+x = c(A, B)
+y <- as.factor(c(rep(0, 10), rep(1, 10)))
+df1 <- as.data.frame(cbind(x, y))
+boxplot(x~y, data=df1)
+
+t.test(A, B, var.equal=TRUE)
+t.test(A, B, var.equal=FALSE)
+
+summary(aov(x ~ y, data=df1))
+
+C <- round(rnorm(10, mean=10, sd=1))
+D <- round(rnorm(10, mean=12, sd=3))
+x = c(C, D)
+y <- as.factor(c(rep(0, 10), rep(1, 10)))
+df2 <- as.data.frame(cbind(x, y))
+boxplot(x~y, data=df2)
+
+t.test(A, B, var.equal=TRUE)
+t.test(A, B, var.equal=FALSE)
+
+summary(aov(x ~ y, data=df2))
+
+```
