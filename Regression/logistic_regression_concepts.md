@@ -22,16 +22,12 @@ CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chi
 
 hon-fem       | hon_data$female
 -----------   | ---------------------------------
-hon_data$hon  | 0       |   1       | Row Toral 
+hon_data$hon  |     0   |   1       | Row Toral 
+-----------   | ---------------------------------
             0 |     74  |       77  |      151   
             1 |     17  |       32  |       49   
  Column Total |     91  |      109  |      200            
              
--------------------------------------------------
-hon_data$hon   |        0  |        1  | Row Total  
-               0 |       74  |       77  |      151   
-               1 |       17  |       32  |       49   
-    Column Total |       91  |      109  |      200   
   
   
 ## Changind REFERENCE LEVEL in R
