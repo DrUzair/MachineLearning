@@ -21,7 +21,8 @@ CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chi
 ```
 First Header | M0 | F1 | Second Header
 ------------ | --- | --- | -------------
-Content from cell 1 | Content from cell 2
+0            | 74  | 77  | 151
+1            | 17  | 32  | 49   
 Content in the first column | Content in the second column
 
 hon_datahon  |  Male   |   Female  | Row Total 
