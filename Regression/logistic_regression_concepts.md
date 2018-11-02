@@ -20,35 +20,13 @@ CrossTable(hon_data$hon, hon_data$female, expected = T, format="SPSS")
 CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chisq=F, format="SPSS")
 ```
 
-hon_data$hon  |     0   |   1       | Row Toral 
------------   | --------| ----------|-------------
-            0 |     74  |       77  |      151   
-            1 |     17  |       32  |       49   
- Column Total |     91  |      109  |      200            
+hon_datahon  |     0   |   1       | Row Total 
+-----------  | ------- | --------- | ------------
+           0 |     74  |       77  |      151   
+           1 |     17  |       32  |       49   
+Column Total |     91  |      109  |      200            
              
-  
-  
-## Changind REFERENCE LEVEL in R
-```r
-hon_data$hon <- as.factor(hon_data$hon)
-str(hon_data$hon)
-levels(hon_data$hon)
-hon_data$hon <- relevel(hon_data$hon, '1')
-levels(hon_data$hon)
-CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chisq=F, format="SPSS")
-```
-
-               | hon_data$female 
-hon_data$hon   |        0  |        1  | Row Total | 
-  -------------|-----------|-----------|-----------|
-             1 |       74  |       77  |      151  | 
-  -------------|-----------|-----------|-----------|
-             0 |       17  |       32  |       49  | 
-  -------------|-----------|-----------|-----------|
-  Column Total |       91  |      109  |      200  | 
-  -------------|-----------|-----------|-----------|
-  
-
+ 
 # Connecting the Probability, Odds, Odds Ratio and Logistic Regression
 ## no predictors. just the intercept
 ```r
@@ -116,6 +94,28 @@ glm(hon~ read + female + read*female, hon_data, family = 'binomial')
  * If there were no interaction term, -0.1294 would be interpreted as the unique effect of math on hon. 
  * But the interaction means that the effect of math on hon is different for different values of female.  
  * So the unique effect of math on hon is not limited to math coef(-0.1294), but also depends on the values of female and -0.0670. 
+
+## Changing the REFERENCE LEVEL in R
+```r
+hon_data$hon <- as.factor(hon_data$hon)
+str(hon_data$hon)
+levels(hon_data$hon)
+hon_data$hon <- relevel(hon_data$hon, '1')
+levels(hon_data$hon)
+CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chisq=F, format="SPSS")
+```
+
+               | hon_data$female 
+hon_data$hon   |        0  |        1  | Row Total | 
+  -------------|-----------|-----------|-----------|
+             1 |       74  |       77  |      151  | 
+  -------------|-----------|-----------|-----------|
+             0 |       17  |       32  |       49  | 
+  -------------|-----------|-----------|-----------|
+  Column Total |       91  |      109  |      200  | 
+  -------------|-----------|-----------|-----------|
+  
+
 
 ## Another example
 ```r
