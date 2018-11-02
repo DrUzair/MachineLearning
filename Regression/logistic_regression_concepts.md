@@ -21,17 +21,10 @@ CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chi
 ```
 hon_data     | Male | Female | Row Total
 ------------ | --- | --- | -------------
-0            | 74  | 77  | 151
-1            | 17  | 32  | 49   
-Column Total |     91  |      109  |      200            
+No Hon       | 74  | 77  | 151
+Hon          | 17  | 32  | 49   
+Column Total | 91  | 109 | 200            
 
-
-hon_datahon  |  Male   |   Female  | Row Total 
------------  | ------- | --------- | ------------
-           0 |     74  |       77  |      151   
-           1 |     17  |       32  |       49   
-Column Total |     91  |      109  |      200            
-             
  
 # Connecting the Probability, Odds, Odds Ratio and Logistic Regression
 ## no predictors. just the intercept
