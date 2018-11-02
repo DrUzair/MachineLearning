@@ -19,12 +19,12 @@ library(gmodels)
 CrossTable(hon_data$hon, hon_data$female, expected = T, format="SPSS")
 CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chisq=F, format="SPSS")
 ```
-First Header | Second Header
------------- | -------------
+First Header | M0 | F1 | Second Header
+------------ | --- | --- | -------------
 Content from cell 1 | Content from cell 2
 Content in the first column | Content in the second column
 
-hon_datahon  |     0   |   1       | Row Total 
+hon_datahon  |  Male   |   Female  | Row Total 
 -----------  | ------- | --------- | ------------
            0 |     74  |       77  |      151   
            1 |     17  |       32  |       49   
