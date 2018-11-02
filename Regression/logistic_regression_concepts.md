@@ -1,9 +1,3 @@
-```r
-data <- read.csv("C:\\RnD\\Dev\\gradient_descent\\binary_classification.csv")
-data$Studied <- (data$Studied - mean(data$Studied))/sd(data$Studied)
-data$Slept <- (data$Slept - mean(data$Slept))/sd(data$Slept)
-glm(Passed~., data, family = 'binomial')
-```
 
 # Important Transformations
 
@@ -20,7 +14,7 @@ glm(Passed~., data, family = 'binomial')
 *The logit transformation allows for a linear relationship between the response variable and the coefficients:*
 
 ```r
-hon_data <- read.csv("C:\\RnD\\Dev\\gradient_descent\\sample.csv")
+hon_data <- read.csv("..\\sample.csv")
 library(gmodels)
 CrossTable(hon_data$hon, hon_data$female, expected = T, format="SPSS")
 CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chisq=F, format="SPSS")
@@ -121,3 +115,11 @@ glm(hon~ read + female + read*female, hon_data, family = 'binomial')
  If there were no interaction term, -0.1294 would be interpreted as the unique effect of math on hon. 
  But the interaction means that the effect of math on hon is different for different values of female.  
  So the unique effect of math on hon is not limited to math coef(-0.1294), but also depends on the values of female and -0.0670. 
+
+## Another example
+```r
+data <- read.csv("..\\binary_classification.csv")
+data$Studied <- (data$Studied - mean(data$Studied))/sd(data$Studied)
+data$Slept <- (data$Slept - mean(data$Slept))/sd(data$Slept)
+glm(Passed~., data, family = 'binomial')
+```
