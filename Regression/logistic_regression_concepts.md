@@ -68,7 +68,7 @@ glm(hon~1, hon_data, family = 'binomial')
 ```r
 glm(hon~female, hon_data, family = 'binomial')
 ```
- Coefficients:
+ Coefficients: 
   (Intercept)       female  
    -1.4709       0.5928  
  males being the reference group (female=0)
