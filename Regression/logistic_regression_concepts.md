@@ -1,7 +1,9 @@
+```r
 data <- read.csv("C:\\RnD\\Dev\\gradient_descent\\binary_classification.csv")
 data$Studied <- (data$Studied - mean(data$Studied))/sd(data$Studied)
 data$Slept <- (data$Slept - mean(data$Slept))/sd(data$Slept)
 glm(Passed~., data, family = 'binomial')
+```
 
 # Important Transformations
 
