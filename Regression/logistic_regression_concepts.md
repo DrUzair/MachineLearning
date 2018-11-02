@@ -20,8 +20,6 @@ CrossTable(hon_data$hon, hon_data$female, expected = T, format="SPSS")
 CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chisq=F, format="SPSS")
 ```
 
-hon-fem       | hon_data$female
------------   | ---------------------------------
 hon_data$hon  |     0   |   1       | Row Toral 
 -----------   | ---------------------------------
             0 |     74  |       77  |      151   
