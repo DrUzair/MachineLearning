@@ -1,14 +1,14 @@
 
 # Important Transformations
 
-**probability p =   n/N **   --> range between 0~1
-**odds          =   p / (1 - p)                 =   exp(mx  + b) **
-**log(odds)     =   logit(p)                    =   log(p/(1-p))          =   b0 + b1*x1 + . + bk*xk ** --> range between -inf ~ +inf
-**exp(log(odds))=   exp(log(p/(1-p))            =   odds                  =   exp(b0 + b1*x1 + . + bk*xk) **  
-**probability   =   exp(mx + b) / (1+exp(mx+b)) =   1/(1+exp(-(mx+b)))** --> range(0 (if mx+b a large -ve), 1 ((if mx+b a large +ve))). 
-**oddsratio     =   odds1 / odds2 **
-**b1            =   log(odds1) - log(odds2)     =   log(odds1/odds2)      =   log(oddsratio)**   --> b1 is logistic regression coef
-**exp(b1)       =   exp(log(oddsratio))         =   oddsratio**        
+* probability p =   n/N --> range between 0~1
+* odds          =   p / (1 - p)                 =   exp(mx  + b) 
+* log(odds)     =   logit(p)                    =   log(p/(1-p))          =   b0 + b1*x1 + . + bk*xk  --> range between -inf ~ +inf
+* exp(log(odds))=   exp(log(p/(1-p))            =   odds                  =   exp(b0 + b1*x1 + . + bk*xk)   
+* probability   =   exp(mx + b) / (1+exp(mx+b)) =   1/(1+exp(-(mx+b)))** --> range(0 (if mx+b a large -ve), 1 ((if mx+b a large +ve))). 
+* oddsratio     =   odds1 / odds2 
+* b1            =   log(odds1) - log(odds2)     =   log(odds1/odds2)      =   log(oddsratio)   --> b1 is logistic regression coef
+* exp(b1)       =   exp(log(oddsratio))         =   oddsratio        
 
 *Logistic regression is in reality an ordinary regression using the logit as the response variable.*
 *The logit transformation allows for a linear relationship between the response variable and the coefficients:*
