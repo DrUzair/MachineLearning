@@ -23,6 +23,7 @@ First Header | M0 | F1 | Second Header
 ------------ | --- | --- | -------------
 0            | 74  | 77  | 151
 1            | 17  | 32  | 49   
+Column Total |     91  |      109  |      200            
 Content in the first column | Content in the second column
 
 hon_datahon  |  Male   |   Female  | Row Total 
