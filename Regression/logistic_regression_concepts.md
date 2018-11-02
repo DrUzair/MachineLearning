@@ -29,6 +29,7 @@ hon_data$hon   |        0  |        1  | Row Total |
   -------------|-----------|-----------|-----------|
   Column Total |       91  |      109  |      200  | 
   -------------|-----------|-----------|-----------|
+  
 ## Changind REFERENCE LEVEL in R
 ```r
 hon_data$hon <- as.factor(hon_data$hon)
@@ -38,6 +39,7 @@ hon_data$hon <- relevel(hon_data$hon, '1')
 levels(hon_data$hon)
 CrossTable(hon_data$hon, hon_data$female, prop.t=F, prop.r=F, prop.c=F, prop.chisq=F, format="SPSS")
 ```
+
                | hon_data$female 
 hon_data$hon   |        0  |        1  | Row Total | 
   -------------|-----------|-----------|-----------|
@@ -47,6 +49,7 @@ hon_data$hon   |        0  |        1  | Row Total |
   -------------|-----------|-----------|-----------|
   Column Total |       91  |      109  |      200  | 
   -------------|-----------|-----------|-----------|
+  
 
 # Connecting the Probability, Odds, Odds Ratio and Logistic Regression
 ## no predictors. just the intercept
