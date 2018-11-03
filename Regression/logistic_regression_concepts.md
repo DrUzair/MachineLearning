@@ -130,16 +130,29 @@ glm(Passed~., data, family = 'binomial')
 # Model Output Interpretation
 
 A typical output:
-Call:  glm(formula = hon ~ female, family = "binomial", data = hon_data)
+```r
+Call:
+glm(formula = hon ~ female, family = "binomial", data = hon_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.8337  -0.8337  -0.6431  -0.6431   1.8317  
 
 Coefficients:
-(Intercept)       female  
-    -1.4709       0.5928  
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  -1.4709     0.2690  -5.469 4.53e-08 ***
+female        0.5928     0.3414   1.736   0.0825 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Degrees of Freedom: 199 Total (i.e. Null);  198 Residual
-**Null Deviance**:	    222.7 
-**Residual Deviance**: 219.6 	**AIC**: 223.6
+(Dispersion parameter for binomial family taken to be 1)
 
+    Null deviance: 222.71  on 199  degrees of freedom
+Residual deviance: 219.61  on 198  degrees of freedom
+AIC: 223.61
+
+Number of Fisher Scoring iterations: 4
+```
 ## Deviance: 
 Measure of Badness 0f Fit --> the lower the better
 
