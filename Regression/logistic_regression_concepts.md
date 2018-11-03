@@ -12,7 +12,7 @@ y = 1/1+e^(mx + b)
    * range between -inf ~ +inf
 * exp(log(odds))=   exp(log(p/(1-p))            =   odds                  =   exp(mx + b)   
 * oddsratio     =   odds1 / odds2 
-* b            =   log(odds1) - log(odds2)     =   log(odds1/odds2)      =   log(oddsratio)   --> b1 is logistic regression coef
+* b            =   log(odds1) - log(odds2)     =   log(odds1/odds2)      =   log(oddsratio)   
 * exp(m)       =   exp(log(oddsratio))         =   oddsratio        
 
 *Logistic regression is in reality an ordinary regression using the logit as the response variable.*
