@@ -12,7 +12,7 @@ y = 1/1+e^(mx + b)
    * range between -inf ~ +inf
 * exp(log(odds))=   exp(log(p/(1-p))            =   odds                  =   exp(mx + b)   
 * oddsratio     =   odds1 / odds2 
-* b            =   log(odds1) - log(odds2)     =   log(odds1/odds2)      =   log(oddsratio)   
+* m            =   log(odds1) - log(odds2)     =   log(odds1/odds2)      =   log(oddsratio)   
 * exp(m)       =   exp(log(oddsratio))         =   oddsratio        
 
 *Logistic regression is in reality an ordinary regression using the logit as the response variable.*
@@ -55,7 +55,7 @@ glm(hon~female, hon_data, family = 'binomial')
  * males being the reference group (female=0)
  * the logodds of a male in honors class are log(17/74) = -1.4709 --> Intercept
  * the logodds ratio between female & male (32/77)(17/74) = 1.809
- * --> exp(coef of female) --> exp(0.5928) --> 1.809 --> female 80% more likely to be in hon class
+ * exp(coef of female) --> exp(0.5928) --> 1.809 --> female 80% more likely to be in hon class
 
 ## The case of one continuous predictor
 ```r
