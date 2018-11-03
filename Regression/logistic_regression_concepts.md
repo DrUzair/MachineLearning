@@ -162,7 +162,6 @@ Measure of Badness 0f Fit --> the lower the better
 
 * DoF Null/Residual Deviance
 
-* Fisher Scoring Algorithm (maximum likelihood estimation)
 
 ## AIC: [Akaike Information Criterion]
 * related concept ~ Adjusted R-squared: Penalize including inrrelevant variables.
@@ -174,8 +173,11 @@ Measure of Badness 0f Fit --> the lower the better
 
 * The best model has the LOWEST AIC
 
-* Hosmer-Lemeshow Goodness of Fit: (another piece of measurement of goodness)
- - Measures difference between the model and the samples
- - library(ResourceSelection)
- - hoslem.test(mtcars$vs, fitted(model))
- - lower p-value(than alpha) indicates significant difference between obs and model output
+  * Hosmer-Lemeshow Goodness of Fit: (another piece of measurement of goodness)
+   - Measures difference between the model and the samples
+   - library(ResourceSelection)
+   - hoslem.test(mtcars$vs, fitted(model))
+   - lower p-value(than alpha) indicates significant difference between obs and model output
+ 
+ ##  Fisher Scoring Algorithm (maximum likelihood estimation)
+ How many iterations it took to converge. 
