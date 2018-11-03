@@ -68,15 +68,15 @@ Coefficients:
  * the logodds of a student with zero math score --> Intercept
  * odds of an hon student with zero math score exp(Intercept) = -.00005579
  * math coef
- * consider two consecutive numbers. say 40 and 41
- * placing 40 and 41 in the equation and taking the diff will give 0.1563
- * Thus math coef is "the change in logodds"
- * SO. for one unit incriment in math score with result in 0.1563 increment in logodds
+   * consider two consecutive numbers. say 40 and 41
+   * placing 40 and 41 in the equation and taking the diff will give 0.1563
+   * Thus math coef is "the change in logodds"
+ * SO. for one unit incriment in math score will result in 0.1563 increment in logodds
  * Translate change in logodds to odds
- * change in logodds = exp (logodds(math=40) - logodds(math=41))
- * change in logodds = exp (logodds(math=40) / exp (logodds(math=41)))
- * change in logodds = odds(math=40) / odds(math=41)
- * change in logodds = exp(.1563404) 
+   * change in logodds = exp (logodds(math=40) - logodds(math=41))
+   * change in logodds = exp (logodds(math=40) / exp (logodds(math=41)))
+   * change in logodds = odds(math=40) / odds(math=41)
+   * change in logodds = exp(.1563404) 
 
 ## The case of multiple predictors (categorical and numeric)
 ```r
