@@ -4,7 +4,7 @@ y = 1/(1 + exp(mx + b))
 
 # Important Transformations
 
-* probability p =   n/N = exp(mx + b) / (1+exp(mx+b)) =   1/(1+exp(-(mx+b)))
+* probability p =   n/N = [exp(mx + b) / (1+exp(mx+b))] =   [1/(1+exp(-(mx+b)))]
   * range between 0~1  
   * range(0 (if mx+b a large -ve), 1 ((if mx+b a large +ve))). 
 * odds          =   p / (1 - p)                 =   exp(mx  + b) 
