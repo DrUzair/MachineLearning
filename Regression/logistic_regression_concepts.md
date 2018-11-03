@@ -1,4 +1,7 @@
 
+# The Link Function
+y = 1/1+e^(ax+B) 
+
 # Important Transformations
 
 * probability p =   n/N --> range between 0~1
@@ -123,3 +126,43 @@ data$Studied <- (data$Studied - mean(data$Studied))/sd(data$Studied)
 data$Slept <- (data$Slept - mean(data$Slept))/sd(data$Slept)
 glm(Passed~., data, family = 'binomial')
 ```
+
+# Model Output Interpretation
+
+A typical output:
+Call:  glm(formula = hon ~ female, family = "binomial", data = hon_data)
+
+Coefficients:
+(Intercept)       female  
+    -1.4709       0.5928  
+
+Degrees of Freedom: 199 Total (i.e. Null);  198 Residual
+**Null Deviance**:	    222.7 
+**Residual Deviance**: 219.6 	**AIC**: 223.6
+
+## Deviance: 
+Measure of Badness 0f Fit --> the lower the better
+
+* Null Deviance:  How good/bad are the estimates of response variable using ONLY INTERCEPT or (grand mean)
+
+* Residual Deciance: How better/worse are the estimates of response variable using other INDEPENDENT vars in addition to the INTERCEPT or (grand mean)
+
+* DoF Null/Residual Deviance
+
+* Fisher Scoring Algorithm (maximum likelihood estimation)
+
+* AIC: comparing related models ~ related concept ~ Adjusted R-squared: Penalize including inrrelevant variables.
+
+   * Parsimony: unvderfitting (high bias) vs. overfitting (generalizability)
+     bias <--> variance of a model
+* AIC = 2K - log(Likelihood( params | data) )2 --> [Burnham & Anderson 2002]K: dof (estimable params)
+  AICc = AIC + 2K(K+1)/(n-k-1) --> small sample correction [Hurvich&Tsai 1989]
+  Akaike (1973) : what and how regressors influence dependent var
+
+* The best model has the LOWEST AIC
+
+* Hosmer-Lemeshow Goodness of Fit: (another piece of measurement of goodness)
+ - Measures difference between the model and the samples
+ - library(ResourceSelection)
+ - hoslem.test(mtcars$vs, fitted(model))
+ - lower p-value(than alpha) indicates significant difference between obs and model output
