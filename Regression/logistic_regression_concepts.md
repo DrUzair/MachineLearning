@@ -1,6 +1,6 @@
 
 # The Link Function
-y = 1/1+e^(mx + b) 
+y = 1/(1 + exp(mx + b))
 
 # Important Transformations
 
