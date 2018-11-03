@@ -60,10 +60,11 @@ glm(hon~female, hon_data, family = 'binomial')
 ## The case of one continuous predictor
 ```r
 glm(hon~math, hon_data, family = 'binomial')
-```
-**Coefficients:**
+
+Coefficients:
  (Intercept)   math  
  -9.7939       0.1563  
+```
  * the logodds of a student with zero math score --> Intercept
  * odds of an hon student with zero math score exp(Intercept) = -.00005579
  * math coef
