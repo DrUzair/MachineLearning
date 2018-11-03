@@ -76,7 +76,7 @@ Coefficients:
    * change in logodds = exp (logodds(math=40) - logodds(math=41))
    * change in logodds = exp (logodds(math=40) / exp (logodds(math=41)))
    * change in logodds = odds(math=40) / odds(math=41)
-   * change in logodds = exp(.1563404) 
+   * change in logodds = exp(.1563404) = 1.169224 = 1 additonal number in math score 16% more likely to be in hon
 
 ## The case of multiple predictors (categorical and numeric)
 ```r
@@ -89,7 +89,7 @@ glm(hon~math+read+female, hon_data, family = 'binomial')
  * math: keeping read and female constant, one-unit increase in math increases the odds of hon by exp(0.1229589)
  * read: keeping math and female constant, one-unit increase in read increases the odds of hon by exp(0.0590632)
  * female: keeping read and math constant, female have exp(0.97995) better odds than males for getting into hon class
- * interaction analysis
+### Interaction analysis
     * assess the extent to which the association between one predictor and the outcome depends on a second predictor.
 ```r
 glm(hon~ read + female + read*female, hon_data, family = 'binomial')
