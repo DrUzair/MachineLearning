@@ -1,7 +1,12 @@
+Install required packages **scaterplot3d** and **rgl**
+```r
 rm(df, height, width)
 
 require(scatterplot3d)
 library(rgl)
+```
+
+```r
 
 N <- 100
 
@@ -41,3 +46,4 @@ plot3d(comp_1,comp_2,comp_3, col="red", size=3)
 
 # selecting components
 screeplot(pc_df,type="line",main="Scree Plot")
+```
