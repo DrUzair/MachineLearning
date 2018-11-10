@@ -24,20 +24,41 @@ df$area2 <- df$area1 +  noise
 Visualize
 ```r
 scatterplot3d(df$height,df$width,df$area1, main="3D Scatterplot")
-plot3d(df$height,df$width,df$area1, col="red", size=3) 
+# plot3d(df$height,df$width,df$area1, col="red", size=3) 
 # plot3d(df$height,df$width,df$area2, col="red", size=3) 
 ```
 ![Plot](https://github.com/DrUzair/MLSD/blob/master/PCA/pca_plot1.png)
 
+Principal Components:
 
 ```r
 df <- df[, c('width', 'height', 'area1')]
 pc_df<-princomp(df,cor=TRUE, score=TRUE)
-
 summary(pc_df)
+Output:
+Importance of components:
+                          Comp.1    Comp.2     Comp.3
+Standard deviation     1.3726199 1.0250742 0.25522073
+Proportion of Variance 0.6280284 0.3502590 0.02171254
+Cumulative Proportion  0.6280284 0.9782875 1.00000000
+```
+
+Transformation Matrix a.k.a Loadings
+```r
 pc_df$loadings
 # eigen(cor(df)) Transformation matrix
+Loadings:
+       Comp.1 Comp.2 Comp.3
+width   0.525  0.664 -0.533
+height  0.459 -0.748 -0.479
+area1   0.717         0.697
 
+               Comp.1 Comp.2 Comp.3
+SS loadings     1.000  1.000  1.000
+Proportion Var  0.333  0.333  0.333
+Cumulative Var  0.333  0.667  1.000
+```
+```r
 # Transformed data
 pc_df_scores <- data.frame(pc_df$scores) 
 colnames(pc_df_scores) <- c('comp_1', 'comp_2', 'comp_3')
