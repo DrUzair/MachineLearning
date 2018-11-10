@@ -58,18 +58,21 @@ SS loadings     1.000  1.000  1.000
 Proportion Var  0.333  0.333  0.333
 Cumulative Var  0.333  0.667  1.000
 ```
+Transformed data
 ```r
-# Transformed data
 pc_df_scores <- data.frame(pc_df$scores) 
 colnames(pc_df_scores) <- c('comp_1', 'comp_2', 'comp_3')
-
-# visualizing components
-# scatterplot3d(comp_1,comp_2,comp_3, main="3D Scatterplot")
+plot3d(comp_1,comp_2,comp_3, col="red", size=3)
+```
+![Plot](https://github.com/DrUzair/MLSD/blob/master/PCA/pca_plot3.png)
+Visualizing components
+```r
 lapply(X=pc_df_scores, FUN= range)
 biplot(pc_df)
-
-plot3d(comp_1,comp_2,comp_3, col="red", size=3) 
-
+```
+![Plot](https://github.com/DrUzair/MLSD/blob/master/PCA/pca_plot2.png)
+The Scree Plot
+```r
 # selecting components
 screeplot(pc_df,type="line",main="Scree Plot")
 ```
