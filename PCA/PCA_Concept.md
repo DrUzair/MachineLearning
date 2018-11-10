@@ -6,6 +6,7 @@ require(scatterplot3d)
 library(rgl)
 ```
 
+Synthetic dataset: 
 ```r
 
 N <- 100
@@ -17,12 +18,12 @@ df <- data.frame(width, height)
 
 df$area1 <- df$width * df$height 
 
-# noise <- floor(rnorm(N, mean=10, sd=50)) * round(runif(N, -1, 1), 0) # add some masala
-# df$area2 <- df$area1 +  noise
-
-
-
-# scatterplot3d(df$height,df$width,df$area1, main="3D Scatterplot")
+noise <- floor(rnorm(N, mean=10, sd=50)) * round(runif(N, -1, 1), 0) # add some masala
+df$area2 <- df$area1 +  noise
+```
+Visualize
+```r
+scatterplot3d(df$height,df$width,df$area1, main="3D Scatterplot")
 plot3d(df$height,df$width,df$area1, col="red", size=3) 
 # plot3d(df$height,df$width,df$area2, col="red", size=3) 
 
