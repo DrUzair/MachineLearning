@@ -26,7 +26,11 @@ Visualize
 scatterplot3d(df$height,df$width,df$area1, main="3D Scatterplot")
 plot3d(df$height,df$width,df$area1, col="red", size=3) 
 # plot3d(df$height,df$width,df$area2, col="red", size=3) 
+```
+![Plot](https://github.com/DrUzair/MLSD/blob/master/PCA/pca_plot1.png)
 
+
+```r
 df <- df[, c('width', 'height', 'area1')]
 pc_df<-princomp(df,cor=TRUE, score=TRUE)
 
