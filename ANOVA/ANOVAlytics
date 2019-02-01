@@ -1,0 +1,129 @@
+---
+title: "ANOVAlytics"
+author: "Uzair Ahmad"
+date: "February 02, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(shiny)
+library(ggplot2)
+library(gridExtra)
+```
+
+# {.tabset}
+
+## Intrdoduction 
+This tutorial walks you through the steps of how to ANOVA.
+```{r, echo=FALSE}
+ui <- fluidPage(
+   titlePanel("Understanding One-way ANOVA"),
+   
+   sidebarLayout(
+      sidebarPanel(
+         sliderInput("Mean_1",
+                     "Treatment 1 Mean:",
+                     min = 1,
+                     max = 15,
+                     value = 1),
+         sliderInput("Mean_2",
+                     "Treatment 2 Mean:",
+                     min = 1,
+                     max = 15,
+                     value = 1),
+         sliderInput("Mean_3",
+                     "Treatment 3 Mean:",
+                     min = 1,
+                     max = 15,
+                     value = 1)
+      ),
+      
+      # mainPanel(
+      #    plotOutput("distplot"),
+      #    tableOutput('ANOVA_Summary'),
+      #    plotOutput("mst_mse_boxes")
+      # )
+      mainPanel(
+        tabsetPanel(
+          tabPanel("Data", plotOutput("dataplot")),
+          tabPanel("Histogram Distribution", plotOutput("histdistplot")),
+          tabPanel("Boxplot Distribution", plotOutput("boxdistplot")),
+          tabPanel("mst_mse_boxes", plotOutput("mst_mse_boxes"))
+        )
+      )
+   )
+)
+
+
+server <- function(input, output) {
+   
+  x1 <- reactive(
+    {
+      set.seed(input$Mean_1)
+      rnorm(50, mean=input$Mean_1, sd = 1)
+    }
+  )
+  x2 <- reactive(
+    {
+      set.seed(input$Mean_2)
+      rnorm(50, mean=input$Mean_2, sd = 1)
+    }
+  )
+  x3 <- reactive(
+    {
+      set.seed(input$Mean_3)
+      rnorm(50, mean=input$Mean_3, sd = 1)
+    }
+  )
+   
+  
+   
+   output$histdistplot <- renderPlot({
+     # pt1 <- qplot(x1(),fill=I("red"),binwidth=0.2,main="Treatment 1")
+     # pt2 <- qplot(x2(),fill=I("red"),binwidth=0.2,main="Treatment 2")
+     # pt3 <- qplot(x3(),fill=I("red"),binwidth=0.2,main="Treatment 3")
+     # ptlist <- list(pt1, pt2,pt3)
+     # wtlist <- c(20,20,20)
+     # grid.arrange(grobs=ptlist,widths=wtlist,ncol=length(ptlist))
+     treatment <- as.factor(c(rep(1, 50), rep(2, 50), rep(3, 50)))
+     df = data.frame(x = c(x1(), x2(), x3()), treatment=treatment)
+     ggplot(df, aes(x, fill = treatment)) + geom_histogram(binwidth = .2)
+   })
+   
+   output$boxdistplot <- renderPlot({
+     treatment <- as.factor(c(rep(1, 50), rep(2, 50), rep(3, 50)))
+     df = data.frame(x = c(x1(), x2(), x3()), treatment=treatment)
+     print(df)
+     qplot(treatment, x , data = df, geom=c("boxplot", "jitter"))
+   })
+   
+   mst_mse_plot <- reactive({
+     treatment <- c(rep(1, 50), rep(2, 50), rep(3, 50))
+     df = data.frame(x = c(x1(), x2(), x3()), treatment=treatment)
+     anova_summary <- summary(aov(treatment~x, data=df))
+     df = data.frame(anova_summary[[1]])
+     total = sum(df$Mean.Sq)
+     mst_y_top = (df$Mean.Sq[1] / total) * 100
+     mse_y_bot = (df$Mean.Sq[2] / total) * 100
+     plot(c(0,  100), c(0, 100), type= "n", xlab = "", ylab = "")
+     rect(xleft = 0, ybottom = 0, xright = 100, ytop = 100,border ="black")
+     rect(xleft = 0, ybottom = 0, xright = 100, ytop = mse_y_bot, density = 5, border = "red")
+     text(x = 50, y = mse_y_bot / 2, labels = 'MST')
+     rect(xleft = 0, ybottom = mse_y_bot, xright = 100, ytop = 100, density = 5, border = "red")
+     text(x = 50, y = (100 + mse_y_bot) / 2, labels = 'MSE')
+   })
+   
+   output$mst_mse_boxes <- renderPlot({
+     mst_mse_plot()
+     #ptlist <- list(mst_mse_plot())
+     #wtlist <- c(20)
+     #grid.arrange(grobs=ptlist,widths=wtlist,ncol=length(ptlist))
+     
+   })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
