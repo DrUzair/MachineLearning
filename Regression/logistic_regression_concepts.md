@@ -1,6 +1,6 @@
 
 # The Link Function
-y =\frac{ 1}/{(1 + exp(mx + b))}
+y =1/(1 + exp(mx + b))
 
 # Important Transformations
 
