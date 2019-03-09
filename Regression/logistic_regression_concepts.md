@@ -54,7 +54,7 @@ glm(hon~female, hon_data, family = 'binomial')
 ```
  * males being the reference group (female=0)
  * the logodds of a male in honors class are log(17/74) = -1.4709 --> Intercept
- * the logodds ratio between female & male (32/77)(17/74) = 1.809
+ * the logodds ratio between female & male (32/77) / (17/74) = 1.809
  * exp(coef of female) --> exp(0.5928) --> 1.809 --> female 80% more likely to be in hon class
  
 ## The case of one continuous predictor
