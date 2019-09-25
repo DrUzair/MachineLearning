@@ -1,3 +1,4 @@
+```R
 N <- 500
 a <- rnorm(N, mean =5, sd=1)
 b <- rnorm(N, mean =5, sd=1)
@@ -31,3 +32,4 @@ c(mean(a), mean(b), mean(c))
 summary(aov(samples ~ treatments, abc_df))
 
 # Select all, Run many times until you get an odd result... Pr(>F)=0.01~.. dare to explain?
+```
