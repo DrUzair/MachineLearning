@@ -1,6 +1,6 @@
 ```R
-anova_sim <- function(N, means, stds) {
-  #N <- 500
+anova_sim <- function(seed, N, means, stds) {
+  set.seed(seed)
   a <- rnorm(N, mean = means[1], sd = stds[1])
   b <- rnorm(N, mean = means[2], sd = stds[2])
   c <- rnorm(N, mean = means[3], sd = stds[3])
@@ -31,19 +31,24 @@ anova_sim <- function(N, means, stds) {
   aov_summary <- summary(aov(samples ~ treatments, abc_df))
   aov_summary
   
-  return(data.frame('F'=F_ratio, 'p_Value'=df(F_ratio, df1=3-1, df2=(length(abc) - 3)) ))
+  return(data.frame('seed'=seed, 'Btw_MST'=Btw_MST, 'Wthn_MSE'=Wthn_MSE,'F_ratio'=F_ratio, 'p_Value'=df(F_ratio, df1=3-1, df2=(length(abc) - 3)) ))
   # Select all, Run many times until you get an odd result... Pr(>F)=0.01~.. dare to explain?
   
 }
-sim_results <- data.frame('F'=0, 'p_Value'=0)
-set.seed(1)
+sim_results <- data.frame('seed'=0,'Btw_MST'=0, 'Wthn_MSE'=0,'F_ratio'=0, 'p_Value'=0)
+
 for(i in 1:100) {
-  result <- anova_sim(N=50, means=c(5,5,5), stds=c(1, 1, 1))
+  result <- anova_sim(seed=i, N=50, means=c(5,5,5), stds=c(1, 1, 1))
   sim_results <- rbind(sim_results, result)
 }
-plot(sim_results$F, sim_results$p_Value)
+attach(sim_results)
+plot(F_ratio, p_Value)
+hist(p_Value, breaks=seq(from =0, to = 1, by = .05))
+sim_results[order(F_ratio, p_Value),]
+# for p_Value near above 0.05 to 1, we are sure H0 cannot be rejected
+# for p_Value less than 0.05, we cannot accept H0
+# Such small p_Value occur when F is larger than 3
+# F larger than 3 means Between-Class-Variance(Btw_MST) is three times larger than Within-class-Variance(Wthn_MSE)
+anova_sim(seed=73, N=50, means=c(5,5,5), stds=c(1, 1, 1))
 
-
-
-# Select all, Run many times until you get an odd result... Pr(>F)=0.01~.. dare to explain?
 ```
