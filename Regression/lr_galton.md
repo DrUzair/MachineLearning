@@ -4,8 +4,10 @@ install.packages('UsingR')
 require('UsingR')
 ```
 # The Francis Galton's Dataset
-Taller parents produce tall kids, but not as much ... a little shorter
-Shorter parents produce short kids, but not as much ... a little taller
+__Taller parents__ produce __tall kids__, but not as much ... **a little shorter**
+
+__Shorter parents__ produce __short kids__, but not as much ... **a little taller**
+
 ```{R}
 data(galton)
 head(galton)
