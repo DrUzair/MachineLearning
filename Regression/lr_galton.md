@@ -88,7 +88,13 @@ Residual standard error: 2.239 on 926 degrees of freedom
 Multiple R-squared:  0.2105,	Adjusted R-squared:  0.2096 
 F-statistic: 246.8 on 1 and 926 DF,  p-value: < 2.2e-16
 ```
-R-squared = Explained variation (RegressionSS) / Total variation (0~100%) 
+### Residuals:
+Model output - Actual value:
+
+Heteroskedasticity
+
+### R-squared 
+Explained variation (RegressionSS) / Total variation (0~100%) 
 
 TotalSS sum(yi-y_mean)^2, RegressionSS sum(y_est - y_mean)^2, SSE sum(y_est-yi)^2
 100% implies that the model explains all the variability of the response data around its mean.
@@ -97,7 +103,8 @@ low R-square and a good model case
 Adjusted R-squared: (adjusted for different number of predictors)
 more predictor may increase R-square but Adjustment will penalize adding useless independent variables
 
-F-statistics: The larger the more unlikely that coefficients have no effect. 
+### F-statistics
+The larger the more unlikely that coefficients have no effect. 
 Compared to random guess, how better is regression model compared to others
 
 
