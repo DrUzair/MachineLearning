@@ -68,19 +68,19 @@ abline(best_fit_line)
 
 # Notes
 ```{R}
-summary(lm(galton$child~galton$parent))
+summary(lm(child~parent, data=galton))
 
 Call:
-lm(formula = galton$child ~ galton$parent)
+lm(formula = child ~ parent, data = galton)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
 -7.8050 -1.3661  0.0487  1.6339  5.9264 
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   23.94153    2.81088   8.517   <2e-16 ***
-galton$parent  0.64629    0.04114  15.711   <2e-16 ***
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 23.94153    2.81088   8.517   <2e-16 ***
+parent       0.64629    0.04114  15.711   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -98,7 +98,7 @@ Adjusted R-squared: (adjusted for different number of predictors)
 more predictor may increase R-square but Adjustment will penalize adding useless independent variables
 
 F-statistics: The larger the more unlikely that coefficients have no effect. 
-Compared to random guess, how better is regression
+Compared to random guess, how better is regression model compared to others
 
 
 # Correlation ~ Regression
