@@ -35,10 +35,8 @@ fit <- lm(child~parent, data=galton)
 summary(fit) 
 
 ```
-[Check her](./images/galton_dataset.png)
 
-
-![Galton's Dataset](/images/Galton_Dataset.png)
+![Galton's Dataset](https://github.com/DrUzair/MLSD/blob/master/Regression/images/Galton_Dataset.png)
 Format: ![Alt Text](url)
 
 # Global mean
