@@ -37,7 +37,6 @@ summary(fit)
 ```
 
 ![Galton's Dataset](https://github.com/DrUzair/MLSD/blob/master/Regression/images/Galton_Dataset.png)
-Format: ![Alt Text](url)
 
 # Global mean
 
@@ -46,6 +45,7 @@ mChild <- mean(galton$child)
 mParent <- mean(galton$parent)
 points(mParent, mChild, type = "p", col='red')
 ```
+![Global Mean of Galton's Dataset](https://github.com/DrUzair/MLSD/blob/master/Regression/images/Galton_Dataset_Mean.png)
 
 # Best-fit line
 Any line, claiming to be **best fit** should pass through the **global mean**
@@ -55,6 +55,7 @@ All other points in the data will **Regress** to that line
 best_fit_line = lm(galton$child~galton$parent)
 abline(best_fit_line)
 ```
+![Galton's Dataset](https://github.com/DrUzair/MLSD/blob/master/Regression/images/Galton_Dataset_lm.png)
 
 # R-Squared
 R-squared = Explained variation (RegressionSS) / Total variation (0~100%) 
