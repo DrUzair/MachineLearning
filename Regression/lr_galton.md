@@ -14,8 +14,14 @@ __Shorter parents__ produce __short kids__, but not as much ... **a little talle
 data(galton)
 head(galton)
 dim(galton)
-plot(galton$parent, Galton$child)
-plot(jitter(galton$parent), jitter(Galton$child), main='Taller Parents --> Tall Kids (but not as much)')
+plot(galton$parent, Galton$child,
+     main='Taller Parents --> Tall Kids ... but not as much, a little shorter.',
+     xlab='Parent`s Height',
+     ylab='Child`s height')
+plot(jitter(galton$parent), jitter(Galton$child), 
+     main='Taller Parents --> Tall Kids ... but not as much, a little shorter.',
+     xlab='Parent`s Height',
+     ylab='Child`s height')
 ```
 
 ```{R}
@@ -29,6 +35,7 @@ fit <- lm(child~parent, data=galton)
 summary(fit) 
 
 ```
+[Check her](./images/galton_dataset.png)
 
 # Global mean
 
