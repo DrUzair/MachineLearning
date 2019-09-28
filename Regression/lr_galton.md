@@ -1,3 +1,5 @@
+# Reress: To Fall back (return) to the global mean
+
 Install/Load the UsingR package
 ```{R}
 install.packages('UsingR')
@@ -27,6 +29,24 @@ fit <- lm(child~parent, data=galton)
 summary(fit) 
 
 ```
+
+# Global mean
+
+```{R}
+mChild <- mean(galton$child)
+mParent <- mean(galton$parent)
+points(mParent, mChild, type = "p", col='red')
+```
+
+# Best-fit line
+Any line, claiming to be **best fit** should pass through the **global mean**
+
+All other points in the data will **Regress** to that line
+```{R}
+best_fit_line = lm(galton$child~galton$parent)
+abline(best_fit_line)
+```
+
 # R-Squared
 R-squared = Explained variation (RegressionSS) / Total variation (0~100%) 
 
