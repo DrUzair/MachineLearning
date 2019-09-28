@@ -1,9 +1,17 @@
 Install/Load the UsingR package
 ```{R}
+install.packages('UsingR')
 require('UsingR')
+```
+# The Francis Galton's Dataset
+Taller parents produce tall kids, but not as much ... a little shorter
+Shorter parents produce short kids, but not as much ... a little taller
+```{R}
 data(galton)
 head(galton)
+dim(galton)
 plot(galton$parent, Galton$child)
+plot(jitter(galton$parent), jitter(Galton$child), main='Taller Parents --> Tall Kids (but not as much)')
 ```
 
 ```{R}
