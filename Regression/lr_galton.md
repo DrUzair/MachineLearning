@@ -37,6 +37,10 @@ summary(fit)
 ```
 [Check her](./images/galton_dataset.png)
 
+
+![Galton's Dataset](/images/Galton_Dataset.png)
+Format: ![Alt Text](url)
+
 # Global mean
 
 ```{R}
