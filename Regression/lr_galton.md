@@ -125,5 +125,5 @@ abline(fitx, col='pink')
 Sampling process repeated large number (inifitiy) of time, (1-alpha)% of the outcomes will be in the range of 
 
 ```math #yourmathlabel
-a + b = c
+$a + b = c$
 ```
