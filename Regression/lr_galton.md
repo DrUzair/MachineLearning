@@ -1,9 +1,12 @@
+# Regression / OLS / Best-fit
+
 ## Reress: 
 To Fall back (return) to the global mean
 
 ## Best-fit Linear model of the data: 
 No other line can produce less error than the Best-fit line
 
+## 3 Assumptions
  
 # The Francis Galton's Dataset
 __Taller parents__ produce __tall kids__, but not as much ... **a little shorter**
