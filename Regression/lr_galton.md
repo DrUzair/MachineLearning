@@ -1,3 +1,5 @@
+<p align="center"><img src="/Regression/tex/5a1fa75c84e371498151e7e4e9670264.svg?invert_in_darkmode&sanitize=true" align=middle width=301.4880429pt height=37.9216761pt/></p> 
+
 # Regression / OLS / Best-fit
 
 ## Reress: 
@@ -128,5 +130,13 @@ galton<img src="/Regression/tex/f756cd7c4c6499af6ef2b15d10a6f591.svg?invert_in_d
 head(galton)
 plot(galton<img src="/Regression/tex/78989b704f4a96d763a1331c9806904d.svg?invert_in_darkmode&sanitize=true" align=middle width=115.70997405pt height=22.831056599999986pt/>childX)
 fitx <- lm(galton<img src="/Regression/tex/289f86396e0c30e1c0311decaabe81a2.svg?invert_in_darkmode&sanitize=true" align=middle width=102.53944469999999pt height=22.831056599999986pt/>parentX)
-fitx<img src="/Regression/tex/4c03e38cea4701114889baedcb5eefd2.svg?invert_in_darkmode&sanitize=true" align=middle width=184.79173184999996pt height=24.65753399999998pt/>childX, galton<img src="/Regression/tex/0588d663f48058191696b6527170a9b0.svg?invert_in_darkmode&sanitize=true" align=middle width=480.27535049999994pt height=87.12328679999999pt/><img src="/Regression/tex/e64df60cc93ac392640b7fc60abf305e.svg?invert_in_darkmode&sanitize=true" align=middle width=293.94685649999997pt height=28.92634470000001pt/>$
+fitx<img src="/Regression/tex/4c03e38cea4701114889baedcb5eefd2.svg?invert_in_darkmode&sanitize=true" align=middle width=184.79173184999996pt height=24.65753399999998pt/>childX, galton$parentX)
+abline(fitx, col='pink')
+```
+
+# Confidence Interval vs Prediction Interval
+
+Sampling process repeated large number (inifitiy) of time, (1-alpha)% of the outcomes will be in the range of 
+
+
 
