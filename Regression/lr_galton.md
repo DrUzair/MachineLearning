@@ -124,6 +124,5 @@ abline(fitx, col='pink')
 
 Sampling process repeated large number (inifitiy) of time, (1-alpha)% of the outcomes will be in the range of 
 
-```math #yourmathlabel
-$a + b = c$
-```
+$$x_{1,2} = {-b\pm\sqrt{b^2 - 4ac} \over 2a}.$$
+
