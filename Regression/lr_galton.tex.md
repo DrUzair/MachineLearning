@@ -1,3 +1,9 @@
+$$ 
+t_n = \frac{t}{||t||}, \qquad
+b_n = \frac{b}{||b||}, \qquad
+v_n = t_n\times b_n \\ 
+$$ 
+
 # Regression / OLS / Best-fit
 
 ## Reress: 
@@ -139,9 +145,5 @@ abline(fitx, col='pink')
 
 Sampling process repeated large number (inifitiy) of time, (1-alpha)% of the outcomes will be in the range of 
 
-$$ 
-t_n = \frac{t}{||t||}, \qquad
-b_n = \frac{b}{||b||}, \qquad
-v_n = t_n\times b_n \\ 
-$$
+
 
