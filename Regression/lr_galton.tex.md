@@ -145,6 +145,7 @@ Sampling process repeated large number (inifitiy) of time, (1-alpha)% of the out
 $$x_{1,2} = {-b\pm\sqrt{b^2 - 4ac} \over 2a}.$$
 ```
 
-
+\begin{equation}
 SE = \frac{\sigma}{\sqrt{n}}
+\end{equation}
 
