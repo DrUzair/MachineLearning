@@ -131,6 +131,5 @@ fitx <- lm(galton<img src="/Regression/tex/289f86396e0c30e1c0311decaabe81a2.svg?
 fitx<img src="/Regression/tex/4c03e38cea4701114889baedcb5eefd2.svg?invert_in_darkmode&sanitize=true" align=middle width=184.79173184999996pt height=24.65753399999998pt/>childX, galton<img src="/Regression/tex/4ea4bbb47547abc3c8d8b5efbaae0397.svg?invert_in_darkmode&sanitize=true" align=middle width=850.3681032pt height=291.15234389999995pt/><img src="/Regression/tex/ff4274680eea5812a2bc6d6f89179121.svg?invert_in_darkmode&sanitize=true" align=middle width=136.81109145pt height=33.20539200000001pt/>$
 ```
 
-
-SE = \frac{\sigma}{\sqrt{n}}
+<p align="center"><img src="/Regression/tex/456566949b39079011a6217314c31364.svg?invert_in_darkmode&sanitize=true" align=middle width=386.90593094999997pt height=33.4857765pt/></p>
 
