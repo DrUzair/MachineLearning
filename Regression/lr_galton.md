@@ -96,6 +96,17 @@ Model output - Actual value:
 
 Heteroskedasticity
 
+### Coefficients
+
+**Intercept = 23.94**
+If the information about independent variable is not available, the average height will be 23.94??
+
+**slope = 0.64**
+One unit change in the x/predictor/independent variable (parent's height) will cause +0.64 times change in y/the dependent variable. 
+
+#### t-Test
+Null: slope is zero (no relationship between x and y)
+
 ### R-squared 
 Explained variation (RegressionSS) / Total variation (0~100%) 
 
@@ -110,6 +121,7 @@ more predictor may increase R-square but Adjustment will penalize adding useless
 The larger the more unlikely that coefficients have no effect. 
 Compared to random guess, how better is regression model compared to others
 
+##
 
 # Correlation ~ Regression
 ```{R}
