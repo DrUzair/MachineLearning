@@ -139,13 +139,9 @@ abline(fitx, col='pink')
 
 Sampling process repeated large number (inifitiy) of time, (1-alpha)% of the outcomes will be in the range of 
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=x_{1,2}&space;=&space;{-b\pm\sqrt{b^2&space;-&space;4ac}&space;\over&space;2a}." target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_{1,2}&space;=&space;{-b\pm\sqrt{b^2&space;-&space;4ac}&space;\over&space;2a}." title="x_{1,2} = {-b\pm\sqrt{b^2 - 4ac} \over 2a}." /></a>
-
-```
-$$x_{1,2} = {-b\pm\sqrt{b^2 - 4ac} \over 2a}.$$
-```
-
-$$
-SE = \frac{\sigma}{\sqrt{n}}
+$$ 
+t_n = \frac{t}{||t||}, \qquad
+b_n = \frac{b}{||b||}, \qquad
+v_n = t_n\times b_n \\ 
 $$
 
