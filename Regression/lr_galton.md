@@ -138,4 +138,103 @@ abline(fitx, col='pink')
 Sampling process repeated large number (inifitiy) of time, (1-alpha)% of the outcomes will be in the range of 
 
 
+```R
+install.packages('UsingR')
+require('UsingR')
+data(galton)
+head(galton)
+dim(galton)
+plot(galton$parent, Galton$child,
+     main='Taller Parents --> Tall Kids ... but not as much, a little shorter.',
+     xlab='Parent`s Height',
+     ylab='Child`s height')
+plot(jitter(galton$parent), jitter(Galton$child), 
+     main='Taller Parents --> Tall Kids ... but not as much, a little shorter.',
+     xlab='Parent`s Height',
+     ylab='Child`s height')
 
+mChild <- mean(galton$child)
+mParent <- mean(galton$parent)
+
+points(mParent, mChild, type = "p", col='red', 'pch' =21, 'lwd'=10)
+
+nrow(galton)
+sample_size = 600
+# intervals
+galton_sample <- galton[c(sample(1:nrow(galton), sample_size)),]
+model <- lm(child~parent, data=galton_sample)
+print(summary(model))
+plot(jitter(galton_sample$parent), jitter(galton_sample$child), 
+     main=paste(sample_size, 'Samples'),
+     xlab='Parent`s Height',
+     ylab='Child`s height')
+abline(model, col = "darkgray", lty = 1)
+newx <- seq(min(galton$child), max(galton$parent), length.out=sample_size)
+preds <- predict(model, 
+                 newdata = data.frame(parent=newx), 
+                 level = 0.99,
+                 interval="confidence")
+polygon(c(rev(newx), newx), 
+        c(rev(preds[ ,3]), 
+          preds[ ,2]), 
+        col = rgb(red = 0, green = 1, blue = 0, alpha = 0.5), 
+        border = NA)
+preds <- predict(model, 
+                 newdata = data.frame(parent=newx), 
+                 level = 0.70,
+                 interval="prediction")
+polygon(c(rev(newx), newx), 
+        c(rev(preds[ ,3]), 
+          preds[ ,2]), 
+        col = rgb(red = 0, green = 0, blue = 1, alpha = 0.05), 
+        border = NA)
+abline(model, col = "darkgray", lty = 1)
+
+abline(model, col = "darkgray", lty = 1)
+lines(newx, preds[ ,3], lty = 'dashed', col = 'red')
+lines(newx, preds[ ,2], lty = 'dashed', col = 'red')
+for (i in 1:100){
+  galton_sample <- galton[c(sample(1:nrow(galton), sample_size)),]
+  model <- lm(child~parent, data=galton_sample)
+  print(summary(model))
+  abline(model, col = "gray", lty = 1)
+}
+
+model <- lm(child~parent, data=galton)
+print(summary(model))
+abline(model)
+
+y_pred_model_1 <- predict(model_1, newdata = data.frame(parent = galton$parent))
+plot(galton$parent, y_pred_model_1)
+
+model_2 <- lm(child ~ 1, data=galton)
+summary(model_2)
+abline(model_2) #
+y_pred_model_2 <- predict(model_2, newdata = data.frame(parent = galton$parent))
+plot(galton$parent, y_pred_model_2)
+
+model_1_intercept <- 23.94
+model_2_intercept <- 68.088
+N = dim(galton)[1]
+y_pred_model_1 <- predict(model_1, newdata = data.frame(parent = galton$parent))
+y_pred_model_2 <- predict(model_2, newdata = data.frame(parent = galton$parent))
+model_1_sigma <- sum((y_pred_model_1 - galton$child)^2) / (N-2)
+model_2_sigma <- sum((y_pred_model_2 - galton$child)^2) / (N-2)
+S_xx <- sum((galton$parent - mean(galton$parent))^2)
+model_1_SE_b <- sqrt(model_1_sigma * ((1/N) + ( mean(galton$parent)^2 / S_xx )))
+T_stat <- (model_1_intercept) / model_1_SE_b
+summary(scale((galton$child - y_pred_model_2), center = T, scale = F))
+summary(lm(child~1, data=galton))
+summary(lm(child~parent, data=galton))
+
+# Correlation ~ Regression
+galton$childX <- scale(galton$child)
+galton$parentX <- scale(galton$parent)
+head(galton)
+plot(galton$parentX, galton$childX)
+fitx <- lm(galton$childX~galton$parentX)
+fitx$coefficients[2] 
+cor(galton$childX, galton$parentX)
+abline(fitx, col='pink')
+
+```
