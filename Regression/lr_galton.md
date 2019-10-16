@@ -10,10 +10,11 @@ No other line can produce less error than the Best-fit line
 ## 3 Assumptions
  
 # The Francis Galton's Dataset
-__Taller parents__ produce __tall kids__, but not as much ... **a little shorter**
+__Extremely Tall parents__ produce __tall kids__, but not as much ... **Substantially shorter**
 
-__Shorter parents__ produce __short kids__, but not as much ... **a little taller**
+__Extremely Short parents__ produce __short kids__, but not as much ... **substantially taller**
 
+[Ref](https://www.tandfonline.com/doi/full/10.1080/10691898.2001.11910537)
 Data set
 
 Install/Load the UsingR package
