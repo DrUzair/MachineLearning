@@ -15,21 +15,21 @@ Men: 45K, 55K, 60K, 70K, 72K
 Minorities: 18K, 30K, 34K, 40K, 44K.
  
 ### Step 1: Sort the data for all groups/samples into ascending order in one combined set.
-18K
-23K
-30K
-34K
-40K
-41K
-44K
-45K
-54K
-55K
-60K
-66K
-70K
-72K
-78K
+18K\
+23K\
+30K\
+34K\
+40K\
+41K\
+44K\
+45K\
+54K\
+55K\
+60K\
+66K\
+70K\
+72K\
+78K\
 
 ### Step 2: Assign ranks to the sorted data points. Give tied values the average rank.
 20K 1
