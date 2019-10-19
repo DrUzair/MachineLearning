@@ -10,9 +10,9 @@ The hypotheses for the test are:
 **H1: population medians are not equal.**
 
 # Sample question: A shoe company wants to know if three groups of workers have different salaries:
-Women: 23K, 41K, 54K, 66K, 78K.
-Men: 45K, 55K, 60K, 70K, 72K
-Minorities: 18K, 30K, 34K, 40K, 44K.
+Women: 23K, 41K, 54K, 66K, 78K\
+Men: 45K, 55K, 60K, 70K, 72K\
+Minorities: 18K, 30K, 34K, 40K, 44K\
  
 ### Step 1: Sort the data for all groups/samples into ascending order in one combined set.
 18K\
@@ -49,9 +49,9 @@ Minorities: 18K, 30K, 34K, 40K, 44K.
 90K 15
 
 ### Step 3: Add up the different ranks for each group/sample.
-Women: 23K, 41K, 54K, 66K, 90K = 2 + 6 + 9 + 12 + 15 = 44.
-Men: 45K, 55K, 60K, 70K, 72K = 8 + 10 + 11 + 13 + 14 = 56.
-Minorities: 20K, 30K, 34K, 40K, 44K = 1 + 3 + 4 + 5 + 7 = 20.
+Women: 23K, 41K, 54K, 66K, 90K = 2 + 6 + 9 + 12 + 15 = 44\
+Men: 45K, 55K, 60K, 70K, 72K = 8 + 10 + 11 + 13 + 14 = 56\
+Minorities: 20K, 30K, 34K, 40K, 44K = 1 + 3 + 4 + 5 + 7 = 20\
  
  Step 4: Calculate the test statistic:
  H=[(12/n(n+1))sum(Tj/nj)]-3(n+1)
