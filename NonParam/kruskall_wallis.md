@@ -29,24 +29,25 @@ Minorities: 18K, 30K, 34K, 40K, 44K.
 66K\
 70K\
 72K\
-78K\
+78K
 
 ### Step 2: Assign ranks to the sorted data points. Give tied values the average rank.
-20K 1
-23K 2
-30K 3
-34K 4
-40K 5
-41K 6
-44K 7
-45K 8
-54K 9
-55K 10
-60K 11
-66K 12
-70K 13
-72K 14
+20K 1\
+23K 2\
+30K 3\
+34K 4\
+40K 5\
+41K 6\
+44K 7\
+45K 8\
+54K 9\
+55K 10\
+60K 11\
+66K 12\
+70K 13\
+72K 14\
 90K 15
+
 ### Step 3: Add up the different ranks for each group/sample.
 Women: 23K, 41K, 54K, 66K, 90K = 2 + 6 + 9 + 12 + 15 = 44.
 Men: 45K, 55K, 60K, 70K, 72K = 8 + 10 + 11 + 13 + 14 = 56.
