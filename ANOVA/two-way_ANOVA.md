@@ -1,5 +1,7 @@
-```R
+# Two way ANOVA
+Ha: One of the treatments/blocks is outstanding
 
+```R
 moth_catcher <- read.csv("https://raw.githubusercontent.com/DrUzair/MLSD/master/Datasets/MothCatcher2.csv")
 moth_catcher$Location <- as.factor(moth_catcher$Location)
 moth_catcher$Treatment <- as.factor(moth_catcher$Treatment)
