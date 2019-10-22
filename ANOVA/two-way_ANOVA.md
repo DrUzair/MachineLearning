@@ -17,3 +17,19 @@ interaction.plot(x.factor = moth_catcher$Location, trace.factor = moth_catcher$T
 
 summary(aov(Catch ~ Location + Treatment, data = moth_catcher))
 ```
+
+# Notice
+```R
+> summary(aov(Catch ~ Location + Treatment, data = moth_catcher))
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+Location     3   1981   660.5  11.327 7.17e-06 ***
+Treatment    2    113    56.5   0.969    0.386    
+Residuals   54   3149    58.3                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> summary(aov(Catch ~ Treatment + Location, data = moth_catcher))
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+Treatment    2    113    56.5   0.969    0.386    
+Location     3   1981   660.5  11.327 7.17e-06 ***
+Residuals   54   3149    58.3   
+```
