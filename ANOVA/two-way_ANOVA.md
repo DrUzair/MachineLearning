@@ -19,6 +19,7 @@ summary(aov(Catch ~ Location + Treatment, data = moth_catcher))
 ```
 
 # Notice
+**Changing the order of treatment and block**
 ```R
 > summary(aov(Catch ~ Location + Treatment, data = moth_catcher))
             Df Sum Sq Mean Sq F value   Pr(>F)    
