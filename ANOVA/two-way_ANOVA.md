@@ -17,7 +17,7 @@ interaction.plot(x.factor = moth_catcher$Location, trace.factor = moth_catcher$T
 
 summary(aov(Catch ~ Location + Treatment, data = moth_catcher))
 ```
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/DrUzair/MLSD/blob/master/ANOVA/moath_catcher_boxplot.png "Mothcatcher dataset boxplot")
 # Notice
 **Changing the order of treatment and block**
 ```R
