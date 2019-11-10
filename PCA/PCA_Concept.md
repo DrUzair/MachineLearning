@@ -1,9 +1,16 @@
 
-<script 
-  src="https://gist.github.com/DrUzair/a81492eda3b446c2bdd358ffdaae93c9.js">
-</script>
-
 [PCA in R](https://gist.github.com/DrUzair/a81492eda3b446c2bdd358ffdaae93c9)
+
+```R
+pca <- function(X)  {
+  X = scale(X, center = T, scale = T)
+  e = eigen(cov(X))    #cov = t(as.matrix(X)) %*% as.matrix(X)
+  return (e)
+}
+pca_ <- pca(df)
+pca_$values / sum(pca_$values) # variance in data explained by each comp
+pca_$vectors # rotation matrix
+```
 
 Install required packages **scaterplot3d** and **rgl**
 ```r
