@@ -10,6 +10,7 @@ pca <- function(X)  {
 pca_ <- pca(df)
 pca_$values / sum(pca_$values) # variance in data explained by each comp
 pca_$vectors # rotation matrix
+as.matrix(df) %*%  as.matrix(pca_$vectors) 
 ```
 
 Install required packages **scaterplot3d** and **rgl**
