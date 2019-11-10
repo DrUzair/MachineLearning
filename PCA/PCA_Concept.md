@@ -3,6 +3,7 @@
   src="https://gist.github.com/DrUzair/a81492eda3b446c2bdd358ffdaae93c9.js">
 </script>
 
+[PCA in R](https://gist.github.com/DrUzair/a81492eda3b446c2bdd358ffdaae93c9)
 
 Install required packages **scaterplot3d** and **rgl**
 ```r
