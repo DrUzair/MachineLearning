@@ -1,10 +1,4 @@
 ```r
-df <- iris[, c('Sepal.Length', 'Petal.Length', 'Species')]
-df[, 1:2] <- scale(df[,1:2])
-plot(df$Sepal.Length, df$Petal.Length, col=df$Species)
-
-d <- dist(df, method = "euclidean")
-
 n <-100
 df = data.frame(
   x1 = c(rnorm(n, mean = 10, sd = 3), rnorm(n, mean = 20, sd = 3), rnorm(n, mean = 20, sd = 3), rnorm(n, mean = 10, sd = 3)), 
@@ -31,6 +25,7 @@ k4 <- kmeans(df[,1:2], centers = 4)
 str(k4)
 k4$cluster
 plot(df$x1, df$x2, col=k4$cluster, main='k-means')
+points(k4$centers, col = 1:4, pch = 19)
 #fviz_cluster(k4, data = df) # pca-ed 
 
 ```
