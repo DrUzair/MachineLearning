@@ -1,0 +1,27 @@
+# Ensember Learning
+- many diverse suboptiomal are better than signle, unitype super optimal
+- Bias-Variance trade off
+  - Bias: Error on training (A limited, fixed sample of reality) 
+  - Variance:Error on Test data (a different sample of reality)
+  - Averaging multiple sub-optimal models 
+- Better accuracy but slower inference speed
+
+# Bootstrap Aggregation (Bagging)
+- Bootstrap: rendomly sample with replacement training data into M bags
+- Aggregation: train a separate model for each bag
+  - average (regression) or voting (classification_ for each bag
+
+# Boosting
+- Sequence of increasingly better modelrs
+  
+## Adaptive Boosting (AdaBoost)
+- Procedure: repeat M times
+  - X = Randomly sample training data with weights
+  - Train model Y' = model(X)
+  - update weights = (Y' - Y)
+
+## Gradient Boosting
+- Procedure: repeat M times
+  - train a regressor for the residuals of previous regressor
+  
+### Extreme Gradient Boosting (XGBoost)
