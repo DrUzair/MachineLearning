@@ -9,7 +9,7 @@
 ## Unsupervised Learning
 ### Dimensionality Reduction
 #### Clustring
-#### Principle Component Analysis
+#### [Principle Component Analysis](https://github.com/DrUzair/MLSD/pca)
 ## Supervised Learning
 ### Linear Regression
 Continuous output (e.g. price)
