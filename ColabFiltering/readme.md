@@ -4,20 +4,24 @@
 **idea** This kind of person likes this kind of things.
 
 - Inputs: User(M)-Item(N) ratings matrix (MxN) 
+
+### Memory Based
+
+#### User-Item filtering
+**idea** Similar users like similar things
+- Use rating distributions per user
+
 **Pros**
 1. Easy interpretability
 **Cons**
 1. Fit for small scale 
 2. Cold-start: Recommending for a user with no history  
+3. User profiles change over time, fairly quickly
 
-### Memory Based
 
-
-#### User-Item filtering
-**idea** Similar users like similar things
-#### Item-Item filtering
+#### Item-Item filtering 
 **idea** Similar items are liked by the similar users
-
+- Use rating distributions per item, not per user.
 
 ### Model Based
 **idea** Low dimensional latent/hidden/underlyig factors or embedding cause people to like what they like 
@@ -43,6 +47,12 @@ u, s, vt = svds(A, k=2) # k is the number of factors
 ##### Probabilistic Factorization
 #### Deep learning
 ## Content-Based 
+**idea** Similar items are recommendable
+
+**Pros** 
+1. No cold-start. Similar items can be recommended to new user. 
+
 ## References
 1. [Netflix scoreboard](https://www.netflixprize.com/leaderboard.html)
 2. [Netflix Prize winner, Bellkore's](https://www.netflixprize.com/assets/GrandPrize2009_BPC_BellKor.pdf)
+3. [Amazon Patent, Item-Item Filtering](https://patents.google.com/patent/US6266649)(#item-item-filtering-amazon)
