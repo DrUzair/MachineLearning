@@ -22,7 +22,7 @@
 #### Item-Item filtering <a name="item-item-filt-amazon"></a>
 **idea** Similar items are liked by the similar users
 - Use rating distributions per item, not per user.
-- [Amazon Patent](item-item-filt-amazon)
+- [Amazon Patent](#item-item-filt-amazon)
 ### Model Based
 **idea** Low dimensional latent/hidden/underlyig factors or embedding cause people to like what they like 
 
