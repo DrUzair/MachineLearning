@@ -19,10 +19,10 @@
 3. User profiles change over time, fairly quickly
 
 
-#### Item-Item filtering 
+#### Item-Item filtering <a name="item-item-filt-amazon"></a>
 **idea** Similar items are liked by the similar users
 - Use rating distributions per item, not per user.
-
+- [Amazon Patent](item-item-filt-amazon)
 ### Model Based
 **idea** Low dimensional latent/hidden/underlyig factors or embedding cause people to like what they like 
 
@@ -55,4 +55,4 @@ u, s, vt = svds(A, k=2) # k is the number of factors
 ## References
 1. [Netflix scoreboard](https://www.netflixprize.com/leaderboard.html)
 2. [Netflix Prize winner, Bellkore's](https://www.netflixprize.com/assets/GrandPrize2009_BPC_BellKor.pdf)
-3. [Amazon Patent, Item-Item Filtering](https://patents.google.com/patent/US6266649)(#item-item-filtering-amazon)
+3. [Amazon Patent, Item-Item Filtering](https://patents.google.com/patent/US6266649)<a name="item-item-filt-amazon"></a>
