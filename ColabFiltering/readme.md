@@ -46,6 +46,8 @@ u, s, vt = svds(A, k=2) # k is the number of factors
 
 ##### Probabilistic Factorization
 #### Deep learning
+- Auto encoders
+
 ## Content-Based 
 **idea** Similar items are recommendable
 
