@@ -24,12 +24,20 @@
 1. Fit for large sparse matrices
 
 **Cons** 
-1. only god knows what is the meaning
+1. No interpretation: only god knows what is the meaning
 
 ### Matrix Factorization
 - Decompse U into u_latent and i_latent such that U = u_latent * i_latent
-Optimization problem: Loss function, Contraints
+- Optimization problem: Loss function, Contraints
+- Igone the unknown, reduce RMSE for the known user-item matrix
 #### Singular Value Decomposition
+```py
+from scipy.sparse import csc_matrix
+from scipy.sparse.linalg import svds
+A = csc_matrix([[1, 0, 0], [5, 0, 2], [0, -1, 0], [0, 0, 3]], dtype=float)
+u, s, vt = svds(A, k=2) # k is the number of factors
+```
+
 #### Probabilistic Factorization
 ### Deep learning
 #### 
