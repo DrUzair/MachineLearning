@@ -9,6 +9,11 @@ output:
     number_sections: true
 ---
 
+# RandomForest 
+
+## Categorical Variables
+- randomForest allows upto 53 levels in categorical variables
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -18,7 +23,7 @@ library(caret)
 library(stringr)
 ```
 
-# Q2: Build a model to predict city mpg (variable “UCity” in column BG). 
+# Predicting UCity using RandomForest, LM 
 
 EDA led the choice of variables and models. (ref WW_FuelEco_Q3.pdf)
 
