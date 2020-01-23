@@ -1,4 +1,6 @@
-# Simulate Data
+# Understanding ANOVA
+
+## Simulate Data
 Input 3 sample means and stds
 
 ```R
@@ -18,6 +20,24 @@ Plot the simulated data
 ```R
 boxplot(samples~treatments, gen_data(seed=0, N=10, means=c(0,0,0), stds=c(1,1,1)))
 ```
+## Total Spread: 
+- Total_SS Sum of squared distances of each point from the mean of all data points.
+```R
+Total_SS <- sum((abc - mean_abc)^2)
+```  
+## Between class variance
+- 
+```R
+Btw_SST <- sum((N)*(mean(a) - mean_abc)^2 , (N)*(mean(b) - mean_abc)^2 , (N)*(mean(c) - mean_abc)^2)
+#Btw_SST <- sum( (N-1)*(sqrt(var(a))) , (N-1)*(sqrt(var(b))) , (N-1)*(sqrt(var(c))))
+Btw_MST <- Btw_SST / (3 - 1)
+```
+## Within class variance
+```R
+Wthn_SSE <- sum((a - mean(a))^2 , (b - mean(b))^2 , (c - mean(c))^2)
+Wthn_MSE <- Wthn_SSE / (length(abc) - 3)
+```
+
 ```R
 anova_sim <- function(seed, N, means, stds) {
   set.seed(seed)
