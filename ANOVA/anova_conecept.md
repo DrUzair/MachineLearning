@@ -1,3 +1,23 @@
+# Simulate Data
+Input 3 sample means and stds
+
+```R
+gen_data <- function(seed, N, means, stds) {
+  set.seed(seed)
+  a <- rnorm(N, mean = means[1], sd = stds[1])
+  b <- rnorm(N, mean = means[2], sd = stds[2])
+  c <- rnorm(N, mean = means[3], sd = stds[3])
+  abc <- c(a, b, c)
+  abc_labels <- rep(1:3, rep(N, 3))
+  abc_labels <- as.factor(abc_labels)
+  abc_df <- data.frame(samples=abc, treatments=abc_labels)
+  return abc_df
+}
+```
+Plot the simulated data
+```R
+boxplot(samples~treatments, gen_data(seed=0, N=10, means=c(0,0,0), stds=c(1,1,1)))
+```
 ```R
 anova_sim <- function(seed, N, means, stds) {
   set.seed(seed)
