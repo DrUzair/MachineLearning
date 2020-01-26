@@ -1,5 +1,14 @@
 # Understanding ANOVA
 
+ANOVA is a ratio of two number a.k.a F-ratio
+- Between class spread (Sum of Squares for Treatments: SST)
+- Within class spread (Sum of Squares for Errors: SSE)
+
+Theoreticall the Total Sum of Squares is composed of SST and SSE
+```math
+TotalSS = SST + SSE
+```
+
 ## Simulate Data
 Input 3 sample means and stds
 
