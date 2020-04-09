@@ -1,0 +1,50 @@
+{
+  "states": [
+    {
+      "name": "A0",
+      "label": "A0",
+      "id": 0
+    },
+    {
+      "name": "A1",
+      "label": "A1",
+      "id": 1
+    },
+    {
+      "name": "A2",
+      "label": "A2",
+      "id": 2
+    },
+    {
+      "name": "A3",
+      "label": "A3",
+      "id": 3
+    }
+  ],
+  "transition": [
+    {
+      "source": 0,
+      "target": 1,
+      "Q": 0,
+      "R": 1
+    },
+    {
+      "source": 1,
+      "target": 3,
+      "Q": 0,
+      "R": 1
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "Q": 0,
+      "R": 1
+    },
+    {
+      "source": 0,
+      "target": 2,
+      "Q": 0,
+      "R": 1
+    }
+  ]
+}
