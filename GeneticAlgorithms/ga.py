@@ -5,23 +5,56 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class City:
+    """
+            City class
+
+            Usage:
+            city = City(x, y)
+
+            Represents location coordinates of city
+            Author: Uzair Ahmad
+    """
     def __init__(self, x ,y):
         self.x = x
         self.y = y
 
     def distance(self, gene):
         return sqrt(((self.x - gene.x) ** 2 ) + ((self.x - gene.x) ** 2))
+
     def __repr__(self):
         return "({0}, {1})".format(str(round(self.x,2)), str(round(self.y,2)))
 
 
 class TSP_GA:
+    """
+        TSP_GA class
+
+        Usage:
+        tsp = TSP_GA()
+        bestRoute_1stGen, best_route = tsp.findShortestRoute()
+
+        finds the shortes path traversing a list of cities.
+        Author: Uzair Ahmad
+    """
     def __init__(self,
                  routes_count = 100,
                  cities_in_route = 25,
                  mutation_rate=0.001,
                  elite_percentage=10,
                  random_state=1):
+        """Initialize TSP_GA object.
+
+                Parameters
+                ----------
+                 int : routes_count , Number routes/chromosomes in the population,
+                 int : cities_in_route , size of route/choromosome
+                 float : mutation_rate=0.001 , probability of mutation in gene of a route/chomosome
+                 float : elite_percentage , percentage of population to be considered for reproduction
+                 int : random_state , for reproducing random numbers
+                Returns
+                -------
+                object : an object of TfidfRetriever
+        """
         self.routes_count = routes_count
         self.cities_in_route = cities_in_route
         self.mutation_rate = mutation_rate
@@ -73,12 +106,8 @@ class TSP_GA:
         # pick top N (eliteSize) best routes to automatically move on to next generation (elitism)
         for i in range(0, int((self.elite_percentage/100.0) * len(self.routes_list))):
             selected_routes.append(ranked_routes[i])
-        # randomly pick as many candidates from the rest as many elite_percentage
-        selected_routes.extend(
-                          random.sample(
-                              population=ranked_routes[int((self.elite_percentage/100.0)):],
-                              k=int((self.elite_percentage/100.0)))
-        )
+        # randomly pick candidates from the rest
+        selected_routes.extend(random.sample(ranked_routes[int((self.elite_percentage/100.0)):], 10))
         return selected_routes
 
 
@@ -122,7 +151,7 @@ class TSP_GA:
                     j = int(random.random() * self.cities_in_route)
                     route[j], route[i] = route[i], route[j]
                     mutation_count += 1
-        # print("{0} routes mutated ".format(mutation_count))
+        print("{0} routes mutated ".format(mutation_count))
         return routes
 
     def nextGeneration(self, current_generation):
@@ -161,12 +190,11 @@ class TSP_GA:
         plt.title(title)
         plt.show()
 
-
-tsp = TSP_GA( routes_count = 500,
-              cities_in_route = 20,
-              mutation_rate=0.001,
-              elite_percentage=10,
-              random_state=1)
+tsp = TSP_GA(    routes_count = 200,
+                 cities_in_route = 30,
+                 mutation_rate=0.005,
+                 elite_percentage=20,
+                 random_state=20)
 bestRoute_1stGen, best_route = tsp.findShortestRoute(generations=500)
 tsp.plotResults()
 tsp.plotRoute(best_route)
