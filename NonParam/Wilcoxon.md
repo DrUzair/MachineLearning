@@ -17,7 +17,7 @@ s2 <- c(180, 169, 180, 185, 178, 182)
 	Wilcoxon rank sum test with continuity correction
 
 data:  s2 and s1
-W = 0, p-value = 0.01392
+**W** = 0, p-value = 0.01392
 alternative hypothesis: true location shift is not equal to 0
 ```
   - with s2 as reference group.
@@ -27,26 +27,20 @@ alternative hypothesis: true location shift is not equal to 0
 	Wilcoxon rank sum test with continuity correction
 
 data:  s1 and s2
-W = 24, p-value = 0.01392
+**W** = 24, p-value = 0.01392
 alternative hypothesis: true location shift is not equal to 0
 ```
-s1s2 <- c(s1, s2)
-```
 
-# 
-N <- length(s1s2)
-N1 <- length(s1)
-N2 <- length(s2)
-ranksum_s1s2 = N*(N+1)/2
-ranks_s1 <- rank(s1s2)[1:4]
-T1 <- sum(ranks_s1)
-# T1_star : sum of the ranks of s1 if ranks of s1s2 are reversed (descending order)
-T1_star = N1*(N+1)-T1
-# Wilcox Ranksum Statistic T : minimun of T1 and T1_star
-# https://www.jstor.org/stable/3001968?origin=crossref
-T <- min (T1, T1_star)
+The wilcox.test function calculates Mann-whitney statistic W as proposed [original paper](https://zbmath.org/?format=complete&q=an:0041.26103).
+The Mann-whitney statis W is calculated with respect to reference group as following
+- When S1 is the reference group, W is the number of times s1 is less than s2
+W = N1*N2 + (N1*(N1+1))/2 - T1
+- When S2 is the reference group, W is the number of times s2 is less than s1
+W = N1*N2 + (N2*(N2+1))/2 - T2 
 
-## Mann-whitney Ranksum Statistic W :
+## Mann-whitney Ranksum Statistic W in R:
+
+```r
 N1 <- length(s1)
 N2 <- length(s2)
 ranks_s2 <- rank(s1s2)[5:10]
@@ -69,11 +63,27 @@ for(i in 1:length(s2)){
   }
 }
 W
+```
 # Mann-Whitney U test, 
 # https://zbmath.org/?format=complete&q=an:0041.26103
 # W range [0 - N1*N2] 
 # W = 0 --> complete separation (H0 is unlikely)
 # W = n1*n2 --> complete overlap (Ha is unlikely)
+
+
+# 
+N <- length(s1s2)
+N1 <- length(s1)
+N2 <- length(s2)
+ranksum_s1s2 = N*(N+1)/2
+ranks_s1 <- rank(s1s2)[1:4]
+T1 <- sum(ranks_s1)
+# T1_star : sum of the ranks of s1 if ranks of s1s2 are reversed (descending order)
+T1_star = N1*(N+1)-T1
+# Wilcox Ranksum Statistic T : minimun of T1 and T1_star
+# https://www.jstor.org/stable/3001968?origin=crossref
+T <- min (T1, T1_star)
+
 # pwilcox(q = 13, m = 8, n = 8) * 2
 
 # Calculating p-value from Wilcoxon Ranksum Statistic (approximated to z-score)
