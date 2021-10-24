@@ -1,4 +1,4 @@
-# Demystifying Wilcoxon Ranksum Test 
+# Wilcoxon Ranksum Test 
 This article explains
 1. How R calculates wilcoxon ranksum statistic **W**, and why it changes by changing the reference group.
 2. How the p-value is calculated for wilcoxon ranksum test.
