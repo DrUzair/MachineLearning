@@ -42,31 +42,31 @@ T <- min (T1, T1_star)
 	Wilcoxon rank sum test with continuity correction
 
 data:  s2 and s1
-**W** = 0, p-value = 0.01392
+W = 0, p-value = 0.01392
 alternative hypothesis: true location shift is not equal to 0
 ```
-  - **with s2 as reference group.**
+  - **with s1 as reference group.**
 ```r
 > wilcox.test(s1, s2, exact = FALSE)
 
 	Wilcoxon rank sum test with continuity correction
 
 data:  s1 and s2
-**W** = 24, p-value = 0.01392
+W = 24, p-value = 0.01392
 alternative hypothesis: true location shift is not equal to 0
 ```
-As can be seen, the wilcox.test function does not report **T** statistic. Instead, it calculates Mann-whitney statistic W as proposed [original paper](https://zbmath.org/?format=complete&q=an:0041.26103).
+As can be seen, the wilcox.test function does not report the **T** statistic. Instead, it calculates Mann-whitney statistic W as proposed [original paper](https://zbmath.org/?format=complete&q=an:0041.26103).
 The Mann-whitney statis W is calculated with respect to reference group as following
 - When S1 is the reference group, W is the number of times s1 is less than s2
 ```
-W = N1*N2 + (N1*(N1+1))/2 - T1
+W = N1*N2 + (N1*(N1+1))/2 - ranksum(s1)
 ```
 - When S2 is the reference group, W is the number of times s2 is less than s1
 ```
-W = N1*N2 + (N2*(N2+1))/2 - T2 
+W = N1*N2 + (N2*(N2+1))/2 - ransum(s2) 
 ```
 #### Mann-whitney Ranksum Statistic W in R:
-
+- When S1 is the reference group
 ```r
 N1 <- length(s1)
 N2 <- length(s2)
@@ -82,6 +82,9 @@ for(i in 1:length(s1)){
   }
 }
 W
+```
+- When S1 is the reference group 
+```r
 # W2 is the number of times s2 is less than s1
 W <- 0
 for(i in 1:length(s2)){
@@ -91,6 +94,7 @@ for(i in 1:length(s2)){
 }
 W
 ```
+**NOTE**
 The **W** ranges from 0 to N1*N2 
 - W = 0 --> complete separation (H0 is unlikely)
 - W = n1*n2 --> complete overlap (Ha is unlikely)
