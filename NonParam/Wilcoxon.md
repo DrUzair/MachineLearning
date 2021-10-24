@@ -1,8 +1,32 @@
+Data
+```r
 s1 <- c(235, 225, 190, 188)
 s2 <- c(180, 169, 180, 185, 178, 182)
-wilcox.test(s1, s2)
-wilcox.test(s2, s1)
+```
+- Runnging wilcox.test function in R, 
+  - with s2 as reference group.
+```r
+> wilcox.test(s2, s1, exact = FALSE)
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  s2 and s1
+W = 0, p-value = 0.01392
+alternative hypothesis: true location shift is not equal to 0
+```
+  - with s2 as reference group.
+```r
+> wilcox.test(s1, s2, exact = FALSE)
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  s1 and s2
+W = 24, p-value = 0.01392
+alternative hypothesis: true location shift is not equal to 0
+```
 s1s2 <- c(s1, s2)
+```
+
 # 
 N <- length(s1s2)
 N1 <- length(s1)
