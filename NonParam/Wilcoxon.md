@@ -10,6 +10,7 @@ s1 <- c(235, 225, 190, 188)
 s2 <- c(180, 169, 180, 185, 178, 182)
 ```
 # Why T changes by changing the reference group
+
 ## The Wilcoxon Ranksum Statistic T
 The Wilcoxon Ranksum statistic T is calculated as [proposed by wilcoxon in 1947 in this paper](https://www.jstor.org/stable/3001968?origin=crossref).
 - T1 = sum(ranks_s1)
@@ -30,6 +31,7 @@ T1 <- sum(ranks_s1)
 T1_star = N1*(N+1)-T1
 # Wilcox Ranksum Statistic T : minimun of T1 and T1_star
 T <- min (T1, T1_star)
+```
 ## How **W** is calculated in wilcox.test
 
 ### Runnging wilcox.test function in R, 
