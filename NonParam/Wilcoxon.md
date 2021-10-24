@@ -1,4 +1,10 @@
-Data
+# Demystifying Wilcoxon Ranksum Test 
+This article explains
+1. How R calculates wilcoxon ranksum statistic **W**, and why it changes by changing the reference group.
+2. How the p-value is calculated for wilcoxon ranksum test.
+
+## How **W** is calculated in wilcox.test
+Example Data
 ```r
 s1 <- c(235, 225, 190, 188)
 s2 <- c(180, 169, 180, 185, 178, 182)
