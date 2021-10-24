@@ -58,10 +58,13 @@ alternative hypothesis: true location shift is not equal to 0
 As can be seen, the wilcox.test function does not report **T** statistic. Instead, it calculates Mann-whitney statistic W as proposed [original paper](https://zbmath.org/?format=complete&q=an:0041.26103).
 The Mann-whitney statis W is calculated with respect to reference group as following
 - When S1 is the reference group, W is the number of times s1 is less than s2
+```
 W = N1*N2 + (N1*(N1+1))/2 - T1
+```
 - When S2 is the reference group, W is the number of times s2 is less than s1
+```
 W = N1*N2 + (N2*(N2+1))/2 - T2 
-
+```
 #### Mann-whitney Ranksum Statistic W in R:
 
 ```r
