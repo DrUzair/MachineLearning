@@ -68,13 +68,14 @@ W = N1*N2 + (N2*(N2+1))/2 - ransum(s2)
 #### Mann-whitney Ranksum Statistic W in R:
 - When S1 is the reference group
 ```r
+s1s2 <- c(s1, s2)
 N1 <- length(s1)
 N2 <- length(s2)
-ranks_s2 <- rank(s1s2)[5:10]
-T2 <- sum(ranks_s2)
+ranks_s1 <- rank(s1s2)[1:4]
+T1 <- sum(ranks_s1)
 W1 <- N1*N2 + (N1*(N1+1))/2 - T1
-W2 <- N1*N2 + (N2*(N2+1))/2 - T2
 # W1 is the number of times s1 is less than s2
+# you can also count such cases as following
 W <- 0
 for(i in 1:length(s1)){
   for(j in 1:length(s2)){
@@ -85,7 +86,14 @@ W
 ```
 - When S1 is the reference group 
 ```r
+s1s2 <- c(s1, s2)
+N1 <- length(s1)
+N2 <- length(s2)
+ranks_s2 <- rank(s1s2)[5:10]
+T2 <- sum(ranks_s2)
+W2 <- N1*N2 + (N2*(N2+1))/2 - T2
 # W2 is the number of times s2 is less than s1
+# you can also count such cases as following
 W <- 0
 for(i in 1:length(s2)){
   for(j in 1:length(s1)){
