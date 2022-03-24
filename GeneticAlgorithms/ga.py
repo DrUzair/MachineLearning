@@ -1,7 +1,6 @@
 from math import sqrt
 import random
 import operator
-import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -22,13 +21,13 @@ class TSP_GA:
                  routes_count=100,
                  cities_in_route=25,
                  mutation_rate=0.001,
-                 elite_percentage=10,
+                 elite_percentage=20,
                  random_state=1):
         self.routes_count = routes_count
         self.cities_in_route = cities_in_route
         self.mutation_rate = mutation_rate
         self.elite_percentage = elite_percentage
-        self.random_state = random_state
+        random.seed(random_state)
         self.prepareRoutes()
         self.progress = []
 
@@ -44,7 +43,6 @@ class TSP_GA:
         return route_length
 
     def prepareRoutes(self, max_x=500, max_y=500):
-        np.random.seed(self.random_state)
         city_list = []
         # create a list of cities
         for i in range(0, self.cities_in_route):
@@ -128,7 +126,9 @@ class TSP_GA:
     def nextGeneration(self, current_generation):
         ranked_routes = self.rankRoutes()
         selected_routes = self.selection(ranked_routes)
+        # Do we need to apply cross-over only to elite ?
         child_routes = self.orderedCrossOver(selected_routes)
+
         new_generation = self.mutate(child_routes)
         return new_generation
 
@@ -141,6 +141,8 @@ class TSP_GA:
             new_generation = self.nextGeneration(current_generation=self.routes_list)
             self.progress.append(self.routes_list[0]['length'])
             self.routes_list = new_generation
+            if i % 10 == 0:
+                self.plotRoute(self.routes_list[0]['route'])
 
         print("Final distance: " + str(int(ranked_routes[0]['fitness'])))
         bestRoute = self.rankRoutes()[0]['route']
@@ -161,11 +163,15 @@ class TSP_GA:
         plt.show()
 
 
-tsp = TSP_GA(routes_count=500,
+tsp = TSP_GA(routes_count=50,
              cities_in_route=20,
-             mutation_rate=0.001,
-             elite_percentage=10,
+             mutation_rate=0.01,
+             elite_percentage=20,
              random_state=1)
-bestRoute_1stGen, best_route = tsp.findShortestRoute(generations=500)
+bestRoute_1stGen, best_route = tsp.findShortestRoute(generations=100)
 tsp.plotResults()
 tsp.plotRoute(best_route)
+# trials
+# mutation rate
+# elite percentage
+# turn off under-fit solutions (selection method 78-82)
