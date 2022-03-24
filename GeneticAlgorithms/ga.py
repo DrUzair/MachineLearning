@@ -135,7 +135,7 @@ class TSP_GA:
     def findShortestRoute(self, generations=100):
         ranked_routes = self.rankRoutes()
         bestRoute_1stGen = ranked_routes[0]
-        print("Initial distance: " + str(int(ranked_routes[0]['fitness'])))
+        print("Initial distance: " + str(int(ranked_routes[0]['length'])))
 
         for i in range(0, generations):
             new_generation = self.nextGeneration(current_generation=self.routes_list)
@@ -143,8 +143,9 @@ class TSP_GA:
             self.routes_list = new_generation
             if i % 10 == 0:
                 self.plotRoute(self.routes_list[0]['route'])
-
-        print("Final distance: " + str(int(ranked_routes[0]['fitness'])))
+        
+        ranked_routes = self.rankRoutes()
+        print("Final distance: " + str(int(ranked_routes[0]['length'])))
         bestRoute = self.rankRoutes()[0]['route']
         return bestRoute_1stGen, bestRoute
 
@@ -166,7 +167,7 @@ class TSP_GA:
 tsp = TSP_GA(routes_count=50,
              cities_in_route=20,
              mutation_rate=0.01,
-             elite_percentage=20,
+             elite_percentage=50,
              random_state=1)
 bestRoute_1stGen, best_route = tsp.findShortestRoute(generations=100)
 tsp.plotResults()
