@@ -1,4 +1,3 @@
 Expectation: P(C_i) , P(X | C_i)
 Maximization: P(C_i | X)
-
-[./expmax.jpg]
+[![Expectation Maximization - Introduction to Artificial Intelligence](./expmax.png)]()
